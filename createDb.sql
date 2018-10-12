@@ -1,0 +1,2 @@
+DROP DATABASE contract_management_app;
+CREATE DATABASE contract_management_app;

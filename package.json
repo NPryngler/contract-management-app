@@ -1,0 +1,25 @@
+{
+  "name": "full-stack-boiler-plate",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:5678",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "express": "^4.16.3",
+    "nodemon": "^1.18.4",
+    "pg": "^7.4.3",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-scripts": "1.1.5",
+    "sequelize": "^4.38.1"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "concurrently --names \"React,Express\" --prefix-colors \"green,blue\" \"react-scripts start\" \"nodemon server\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "db": "psql -f createDb.sql && node resetDb.js && node seed.js"
+  }
+}
