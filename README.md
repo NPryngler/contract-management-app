@@ -28,8 +28,7 @@ E-mails ? https://www.npmjs.com/package/nodemailer
 
 How hard is it to integrate to docusign?
 
-Link to schema
-https://www.dbdesigner.net/designer/schema/new
+Link to schemahttps://www.dbdesigner.net/designer/schema/205969
 
 Wireframe link
 https://pr.to/232QSM/
