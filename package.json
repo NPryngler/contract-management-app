@@ -4,9 +4,11 @@
   "private": true,
   "proxy": "http://localhost:5678",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
     "nodemon": "^1.18.4",
     "pg": "^7.4.3",
     "react": "^16.5.2",

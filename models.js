@@ -30,17 +30,16 @@ const Contract = sequelize.define('contract', {
   client_country: Sequelize.TEXT,
   client_address: Sequelize.TEXT,
   service_description: Sequelize.TEXT,
-  service_fee: Sequelize.TEXT,
+  service_fee: Sequelize.INTEGER,
   payment_conditions: Sequelize.TEXT,
-  execution_date: Sequelize.DATEONLY,
   service_duedate: Sequelize.DATEONLY,
   early_termination: Sequelize.TEXT,
   execution_date: Sequelize.TEXT,
 })
 
 const UserContracts = sequelize.define('userContracts');
-User.hasMany(Contract, { through: UserContracts });
-Contract.belongsTo(User, { through: UserContracts });
+User.belongsToMany(Contract, { through: UserContracts});
+Contract.belongsToMany(User, { through: UserContracts });
 
 module.exports = {
   // Export models
