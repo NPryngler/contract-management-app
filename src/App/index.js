@@ -8,6 +8,8 @@ import UserContracts from "../UserContracts";
 
 
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import ContractDetails from "../ContractDetails";
+import UserContract from "../UserContract";
 
 class App extends Component {
   render() {
@@ -42,7 +44,10 @@ class App extends Component {
             <Switch>
               <Route exact path='/' component={Login} />
               <Route exact path='/register' component={Register} />
-              <PrivateRoute exact path='/user-contracts' component={UserContracts} />
+              <PrivateRoute exact path='/my-contracts' component={UserContracts} />
+              <PrivateRoute exact path='/contracts/:id' component={UserContract} />
+
+
 
             </Switch>
 

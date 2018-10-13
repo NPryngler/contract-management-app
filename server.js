@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer')
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -17,6 +18,7 @@ app.get('/api/contracts', async (req, res) => {
   const contracts = await Contract.findAll();
   res.json(contracts);
 });
+
 
 app.get('/api/users', async (req, res) => {
   const users = await User.findAll();
@@ -101,6 +103,133 @@ app.get('/api/current-user', async (req, res) => {
   res.json(user);
 });
 
+app.post('/api/current-user/contracts', async (req, res) => {
+  const token = req.headers['jwt-token'];
+
+  let tokenData;
+  try {
+    tokenData = jwt.verify(token, jwtSecret);
+  } catch (e) {
+    console.log(e);
+  }
+  const { contractId } = req.body;
+  const user = await User.findOne({
+    where: {
+      id: tokenData.userId
+    }
+  });
+  const contract = await Contract.findOne({
+    where: {
+      id: contractId,
+    }
+  })
+  user.addContract(contract);
+  res.sendStatus(201);
+});
+
+app.get('/api/current-user/contracts', async (req, res) => {
+  const token = req.headers['jwt-token'];
+  let tokenData;
+  try {
+    tokenData = jwt.verify(token, jwtSecret);
+  } catch (e) {
+    console.log(e);
+  }
+  const user = await User.findOne({
+    where: {
+      id: tokenData.userId
+    }
+  });
+  const userContracts = await Contract.findAll({
+    include: [
+      {
+        model: User,
+        where: {
+          id: user.id
+        },
+        attributes: []
+      },
+    ],
+  });
+  res.json(userContracts);
+});
+
+app.delete('/api/current-user/contracts', async (req, res) => {
+  const token = req.headers['jwt-token'];
+  let tokenData;
+  try {
+    tokenData = jwt.verify(token, jwtSecret);
+  } catch (e) {
+    console.log(e);
+  }
+  const { contractId } = req.body;
+  const user = await User.findOne({
+    where: {
+      id: tokenData.userId
+    }
+  });
+
+
+app.get('/api/contracts/:id', async (req, res) => {
+  const id = req.params.id;
+  const contract = await Contract.findOne({
+    where: {
+      id: id
+    }
+  });
+  res.json(contract);
+});
+
+app.get('/api/contracts/:id/users', async (req, res) => {
+  const id = req.params.id;
+  const contractUsers = await User.findAll({
+    include: [
+      {
+        model: Contract,
+        where: {
+          id: id
+        }
+      }
+    ]
+  });
+  res.json(contractUsers);
+});
+
+app.get('/api/users/:id', async (req, res) => {
+  const id = req.params.id;
+  const user = await User.findOne({
+    where: {
+      id: id
+    }
+  });
+  res.json(user);
+});
+
+app.get('/api/users/:id/contracts', async (req, res) => {
+  const id = req.params.id;
+  const userContracts = await Contract.findAll({
+    include: [
+      {
+        model: User,
+        where: {
+          id: id
+        }
+      }
+    ]
+  });
+  res.json(userContracts);
+});
+
+  await UserContracts.destroy({
+    where: {
+      $and: [
+        { contractId: contractId },
+        { userId: user.id },
+      ]
+    }
+  });
+  res.sendStatus(200);
+});
 
 
 

@@ -6,33 +6,35 @@ const main = async () => {
   const user1 = await User.create({
     name: 'Natasha Pryngler',
     username: 'npryngler',
-    user_phone_number: 9172928120,
-    passwordDigest: 'qwerty',
+    userPhone: 9172928120,
+    passwordDigest: '$2a$12$58wpxQiElq9kH4cD7eB8beTmbnODPVpYCa5HeaCHPHNmWUr06oXzS',
     email: 'natasha@pryngler.com',
     city: 'São Paulo',
     state: 'São Paulo',
     country: 'Brazil',
     address: 'Rua Purpurina, 222, 22',
-    birth_date: "1981-11-20"
+    birthDate: "1981-11-20"
   })
 
   const contract1 = await Contract.create({
     type: 'software development',
-    client_email: 'client@gmail.com',
-    client_phone_number: 9172928120,
-    client_city: 'New York',
-    client_state: 'New York',
-    client_country: 'USA',
-    client_address: '160 Riverside Boulevard',
-    service_description: 'develop forms',
-    service_fee: 500,
-    payment_conditions: 'two installments',
-    service_duedate: "2018-11-20",
-    early_termination: 'pro-rata payment',
-    execution_date: "2018-10-20",
+    clientName: 'Maria Madalena',
+    clientEmail: 'client@gmail.com',
+    clientPhone: 9172928120,
+    clientCity: 'New York',
+    clientState: 'New York',
+    clientCountry: 'USA',
+    clientAddress: '160 Riverside Boulevard',
+    serviceDescription: 'develop forms',
+    serviceFee: 500,
+    paymentConditions: 'two installments',
+    serviceDuedate: "2018-11-20",
+    earlyTermination: 'pro-rata payment',
+    executionDate: "2018-10-20",
+    contractFile: "",
   })
 
-  // await user1.AddContract(contract1);
+  await user1.addContract(contract1);
 
   process.exit();
 }

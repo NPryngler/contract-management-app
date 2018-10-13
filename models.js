@@ -22,19 +22,20 @@ const User = sequelize.define('user', {
 
 const Contract = sequelize.define('contract', {
   type: Sequelize.TEXT,
-  client_name: Sequelize.TEXT,
-  client_email: Sequelize.TEXT,
-  client_phone_number: Sequelize.STRING,
-  client_city: Sequelize.TEXT,
-  client_state: Sequelize.TEXT,
-  client_country: Sequelize.TEXT,
-  client_address: Sequelize.TEXT,
-  service_description: Sequelize.TEXT,
-  service_fee: Sequelize.INTEGER,
-  payment_conditions: Sequelize.TEXT,
-  service_duedate: Sequelize.DATEONLY,
-  early_termination: Sequelize.TEXT,
-  execution_date: Sequelize.TEXT,
+  clientName: Sequelize.TEXT,
+  clientEmail: Sequelize.TEXT,
+  clientPhone: Sequelize.STRING,
+  clientCity: Sequelize.TEXT,
+  clientState: Sequelize.TEXT,
+  clientCountry: Sequelize.TEXT,
+  clientAddress: Sequelize.TEXT,
+  serviceDescription: Sequelize.TEXT,
+  serviceFee: Sequelize.INTEGER,
+  paymentConditions: Sequelize.TEXT,
+  serviceDuedate: Sequelize.DATEONLY,
+  earlyTermination: Sequelize.TEXT,
+  executionDate: Sequelize.TEXT,
+  filePath: Sequelize.STRING 
 })
 
 const UserContracts = sequelize.define('userContracts');
