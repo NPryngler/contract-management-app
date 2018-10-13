@@ -129,7 +129,7 @@ export default class Register extends Component {
       outline: 'none',
     }
 
-    const { from } = this.props.location.state || { from: { pathname: "/my-collection" } };
+    const { from } = this.props.location.state || { from: { pathname: "/my-contracts" } };
     const { redirectToReferrer } = this.state;
 
     if (redirectToReferrer) {
