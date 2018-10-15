@@ -14,6 +14,43 @@ app.use(bodyParser.json());
 
 const jwtSecret = 'secret189230';
 
+app.post('/api/contracts', async (req, res) => {
+  const { userId, clientName, clientPhone, clientZipcode, clientCity, clientState, clientCountry, clientAddress, serviceDescription, serviceFee, paymentConditions, serviceDueDate, earlyTermination, executionDate, contractId }
+ = req.body;
+
+const token = req.headers['jwt-token'];
+let tokenData;
+try {
+  tokenData = jwt.verify(token, jwtSecret);
+} catch (e) {
+  console.log(e);
+}
+const user = await User.findOne({
+  where: {
+    id: tokenData.userId
+  }
+});
+
+const newContract = await Contract.create({
+  userId: this.state.user.userId,
+  clientName: this.state.clientName,
+  clientPhone: this.state.clientPhone,
+  clientZipcode: this.state.clientZipcode,
+  clientCity: this.state.clientCity,
+  clientState: this.state.clientState,
+  clientCountry: this.state.clientCountry,
+  clientAddress: this.state.clientAddress,
+  serviceDescription: this.state.serviceDescription,
+  serviceFee: this.state.serviceFee,
+  paymentConditions: this.state.paymentConditions,
+  serviceDueDate: this.state.serviceDueDate,
+  earlyTermination: this.state.earlyTermination,
+  executionDate: this.state.executionDate
+})
+response.status(200).json(newContract)
+})
+
+
 app.get('/api/contracts', async (req, res) => {
   const contracts = await Contract.findAll();
   res.json(contracts);
@@ -103,29 +140,7 @@ app.get('/api/current-user', async (req, res) => {
   res.json(user);
 });
 
-app.post('/api/current-user/contracts', async (req, res) => {
-  const token = req.headers['jwt-token'];
 
-  let tokenData;
-  try {
-    tokenData = jwt.verify(token, jwtSecret);
-  } catch (e) {
-    console.log(e);
-  }
-  const { contractId } = req.body;
-  const user = await User.findOne({
-    where: {
-      id: tokenData.userId
-    }
-  });
-  const contract = await Contract.findOne({
-    where: {
-      id: contractId,
-    }
-  })
-  user.addContract(contract);
-  res.sendStatus(201);
-});
 
 app.get('/api/current-user/contracts', async (req, res) => {
   const token = req.headers['jwt-token'];
@@ -170,55 +185,55 @@ app.delete('/api/current-user/contracts', async (req, res) => {
   });
 
 
-app.get('/api/contracts/:id', async (req, res) => {
-  const id = req.params.id;
-  const contract = await Contract.findOne({
-    where: {
-      id: id
-    }
-  });
-  res.json(contract);
-});
-
-app.get('/api/contracts/:id/users', async (req, res) => {
-  const id = req.params.id;
-  const contractUsers = await User.findAll({
-    include: [
-      {
-        model: Contract,
-        where: {
-          id: id
-        }
+  app.get('/api/contracts/:id', async (req, res) => {
+    const id = req.params.id;
+    const contract = await Contract.findOne({
+      where: {
+        id: id
       }
-    ]
+    });
+    res.json(contract);
   });
-  res.json(contractUsers);
-});
 
-app.get('/api/users/:id', async (req, res) => {
-  const id = req.params.id;
-  const user = await User.findOne({
-    where: {
-      id: id
-    }
-  });
-  res.json(user);
-});
-
-app.get('/api/users/:id/contracts', async (req, res) => {
-  const id = req.params.id;
-  const userContracts = await Contract.findAll({
-    include: [
-      {
-        model: User,
-        where: {
-          id: id
+  app.get('/api/contracts/:id/users', async (req, res) => {
+    const id = req.params.id;
+    const contractUsers = await User.findAll({
+      include: [
+        {
+          model: Contract,
+          where: {
+            id: id
+          }
         }
-      }
-    ]
+      ]
+    });
+    res.json(contractUsers);
   });
-  res.json(userContracts);
-});
+
+  app.get('/api/users/:id', async (req, res) => {
+    const id = req.params.id;
+    const user = await User.findOne({
+      where: {
+        id: id
+      }
+    });
+    res.json(user);
+  });
+
+  app.get('/api/users/:id/contracts', async (req, res) => {
+    const id = req.params.id;
+    const userContracts = await Contract.findAll({
+      include: [
+        {
+          model: User,
+          where: {
+            id: id
+          }
+        }
+      ]
+    });
+    res.json(userContracts);
+  });
 
   await UserContracts.destroy({
     where: {

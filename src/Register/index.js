@@ -12,8 +12,9 @@ export default class Register extends Component {
       username: '',
       password: '',
       userPhone: '',
-      email: '',
-      city: '',
+      userEmail: '',
+      userZipcode: '',
+      userCity: '',
       userState: '',
       userCountry: '',
       userAddress: '',
@@ -82,10 +83,11 @@ export default class Register extends Component {
     if (this.state.valid) {
       const requestBody = JSON.stringify({
         name: this.state.name,
-        email: this.state.email,
+        userEmail: this.state.email,
         username: this.state.username,
-        password: this.state.password,
-        city: this.state.city,
+        userPassword: this.state.password,
+        userZipcode: this.state.userZipcode,
+        userCity: this.state.city,
         userPhone: this.state.userPhone,
         userState: this.state.userState,
         userCountry: this.state.userCountry,
@@ -155,7 +157,7 @@ export default class Register extends Component {
           <div className="input-container">
             <label className="register-label">Email: </label>
             <br />
-            <input type='text' placeholder='Email' onChange={this.onInputChange} name='email' value={this.state.email} style={emailStyle}>
+            <input type='text' placeholder='Email' onChange={this.onInputChange} name='userEmail' value={this.state.userEmail} style={emailStyle}>
             </input>
             <p className="error-message">{this.state.emailValidationMessage}</p>
           </div>
@@ -175,7 +177,13 @@ export default class Register extends Component {
           <div className="input-container">
             <label className="register-label">City: </label>
             <br />
-            <input type='text' placeholder='City' onChange={this.onInputChange} name='city' value={this.state.city}>
+            <input type='text' placeholder='City' onChange={this.onInputChange} name='userZipcode' pattern="[0-9]{5}" value={this.state.userZipcode}>
+            </input>
+          </div>
+          <div className="input-container">
+            <label className="register-label">City: </label>
+            <br />
+            <input type='text' placeholder='City' onChange={this.onInputChange} name='userCity' value={this.state.userCity}>
             </input>
           </div>
           <div className="input-container">

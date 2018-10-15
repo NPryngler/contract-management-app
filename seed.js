@@ -8,11 +8,12 @@ const main = async () => {
     username: 'npryngler',
     userPhone: 9172928120,
     passwordDigest: '$2a$12$58wpxQiElq9kH4cD7eB8beTmbnODPVpYCa5HeaCHPHNmWUr06oXzS',
-    email: 'natasha@pryngler.com',
-    city: 'São Paulo',
-    state: 'São Paulo',
-    country: 'Brazil',
-    address: 'Rua Purpurina, 222, 22',
+    userEmail: 'natasha@pryngler.com',
+    userZipCode: '00000',
+    userCity: 'São Paulo',
+    userState: 'São Paulo',
+    userCountry: 'Brazil',
+    userAddress: 'Rua Purpurina, 222, 22',
     birthDate: "1981-11-20"
   })
 

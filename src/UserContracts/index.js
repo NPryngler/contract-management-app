@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./style.css";
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import UserContract from "../UserContract";
-import ContractsForms from "../ContractsForms"
+import ContractsMenu from "../ContractsMenu"
 
 export default class UserContracts extends Component {
   constructor(props) {
@@ -79,7 +79,6 @@ export default class UserContracts extends Component {
             {this.state.userContracts.length > 0 && this.state.userContracts.map(userContract => {
               let count = 0;
               return (
-                //quais props passar?
                 <UserContract
                   key={userContract.id - `${count += 1}`}
                   id={userContract.id}
@@ -103,10 +102,10 @@ export default class UserContracts extends Component {
             )}
           </div>
           <div className='add-button-div'>
-            <button className='addition-button'> <Link className='addition-link' to='/contracts-forms'>Add New Contract</Link></button>
+            <button className='addition-button'> <Link className='addition-link' to='/contracts-menu'>Add New Contract</Link></button>
           </div>
         </div>
-        <Route exact path="/contracts-forms" component={ContractsForms} />
+        <Route exact path="/contracts-menu" component={ContractsMenu} />
       </div>
     )
   }

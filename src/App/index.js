@@ -41,6 +41,7 @@ class App extends Component {
             <Switch>
               <Route exact path='/' component={Login} />
               <Route exact path='/register' component={Register} />
+              <PrivateRoute exact path='/contracts/:id' component={UserContracts} />
               <PrivateRoute exact path='/my-contracts' component={UserContracts} />
             </Switch>
 
