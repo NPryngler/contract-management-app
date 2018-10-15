@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import "./style.css";
+import ContractViewSoftDev from "../ContractViewSoftDev"
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-export default class ContractFormSoftDev extends Component {
+export default class ContractForm extends Component {
   constructor(props) {
     super(props);
     const token = localStorage.getItem('user-jwt');
     this.state = {
       user: {},
       type: "Software Development Agreement",
-      // isLoggedIn: token,
+      isLoggedIn: token,
       // isUserAParty: true,
       clientName: "Client's complete name ",
       clientPhone: "+1(000)000 0000",
@@ -27,9 +28,10 @@ export default class ContractFormSoftDev extends Component {
       stateLocation: JSON.parse(localStorage.getItem("state-location")) || "",
       executionDate: JSON.parse(localStorage.getItem("execution-date")) || "",
     }
+  }
 
   componentDidMount = async () => {
-      this.fetchUser();
+    this.fetchUser();
   }
 
   fetchUser = async () => {
@@ -44,7 +46,7 @@ export default class ContractFormSoftDev extends Component {
     });
   }
 
-  
+
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
@@ -52,13 +54,13 @@ export default class ContractFormSoftDev extends Component {
   }
 
 
-  
 
-  saveChanges = async (event) => {
+
+  saveContract = async (event) => {
     event.preventDefault();
+    this.fetchUser();
     const requestBody = JSON.stringify({
       //
-      userId: this.state.user.userId,
       clientName: this.state.clientName,
       clientPhone: this.state.clientPhone,
       clientZipcode: this.state.clientZipcode,
@@ -74,63 +76,37 @@ export default class ContractFormSoftDev extends Component {
       executionDate: this.state.executionDate
     });
 
-    const response = await fetch ('api/contracts', {
+    const response = await fetch('api/contracts', {
       method: 'POST',
       body: requestBody,
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'jwt-token': this.state.isLoggedIn
       }
     });
-
-
-   
-    // this.setState({
-
-    //   freelancerName: `${this.state.freelancerName}`,
-    //   serviceDescription: `${this.state.serviceDescription}`,
-    //   clientName: `${this.state.clientName}`,
-    //   serviceDueDate: `${this.state.serviceDueDate}`,
-    //   serviceFee: `${this.state.serviceFee}`,
-    //   paymentConditions: `${this.state.paymentConditions}`,
-    //   earlyTermination: `${this.state.earlyTermination}`,
-    //   stateLocation: `${this.state.stateLocation}`,
-    //   executionDate: `${this.state.executionDate}`,
-    // })
-
-
-    // localStorage.setItem('freelancer-name', JSON.stringify(freelancerName));
-    // localStorage.setItem('client-name', JSON.stringify(clientName));
-    // localStorage.setItem('service-description', JSON.stringify(serviceDescription));
-    // localStorage.setItem('service-duedate', JSON.stringify(serviceDueDate));
-    // localStorage.setItem('service-fee', JSON.stringify(serviceFee));
-    // localStorage.setItem('payment-conditions', JSON.stringify(paymentConditions));
-    // localStorage.setItem('early-termination', JSON.stringify(earlyTermination));
-    // localStorage.setItem('state-location', JSON.stringify(stateLocation));
-    // localStorage.setItem('execution-date', JSON.stringify(executionDate));
-
+    console.log(requestBody);
 
   }
 
-  
   render() {
+
     return (
       <div className="forms-wrapper">
         <div className="contract-form-wrapper">
           <h1 className="heading">Create</h1>
           <div className="input-container">
             <div className="input-container-form">
-              <form onClick={this.handleSubmit}>
-
-                <div className="input-wrapper">
+              <form onSubmit={this.saveContract}>
+                {/* <div className="input-wrapper">
                   <label className="input-title">Freelancer's complete name</label>
                   <input
                     className="title-input"
                     placeholder="Freelancer complete name"
                     name="name"
-                    value={this.state.name}
+                    value={this.state.user.name}
                     onChange={this.handleChange}>
                   </input>
-                </div>
+                </div> */}
                 <div className="input-wrapper">
                   <label className="input-title">Client's complete name</label>
                   <input
@@ -184,21 +160,11 @@ export default class ContractFormSoftDev extends Component {
                     onChange={this.handleChange}>
                   </input>
                 </div>
-                {/* <div className="input-wrapper">
-                  <label className="input-title">Location</label>
-                  <input
-                    className="title-input"
-                    type="text"
-                    placeholder="Which State are you based?"
-                    stateLocation={this.state.value}
-                    onChange={this.handleChangeStateLocation}>
-                  </input>
-                </div> */}
                 <div className="input-wrapper">
                   <label className="input-title">Select an early termination clause:
-                                <select className="select-wrapper" 
-                                name="earlyTermination"
-                                value={this.state.earlyTermination} onChange={this.handleChange}>
+                    <select className="select-wrapper"
+                      name="earlyTermination"
+                      value={this.state.earlyTermination} onChange={this.handleChange}>
                       <option value=' any unpaid fees prorated for the portion of the work completed at the time of termination.'>Pro Rata Payment Clause</option>
                       <option value=' liquidated damages in the amount of __________, which the parties agree represents fair compensation for the harm Freelancer would suffer from termination'>Liquidated Damages Clause</option>
                     </select>
@@ -218,20 +184,19 @@ export default class ContractFormSoftDev extends Component {
                 <div className="button-save">
                   <button
                     className="create-contract"
-                    onClick={this.saveChanges}
+                    onClick={this.saveContract}
                     type="submit">
                     Save Contract
-                                </button>
+                    </button>
                 </div>
               </form>
-
             </div>
           </div>
         </div>
         <div className="contract-view-wrapper">
-          <ContractView
+          <ContractViewSoftDev
             userProps={this.state.user}
-            freelancerNameProps={this.state.freelancerName}
+            freelancerNameProps={this.state.user.name}
             clientNameProps={this.state.clientName}
             serviceDescriptionProps={this.state.serviceDescription}
             serviceDueDateProps={this.state.serviceDueDate}
@@ -243,7 +208,6 @@ export default class ContractFormSoftDev extends Component {
           />
         </div>
       </div>
-
     )
   }
 }

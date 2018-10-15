@@ -11,43 +11,51 @@ const path = require('path');
 
 app.use("/", express.static("./build/"));
 app.use(bodyParser.json());
+app.use((request, response, next) => {
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
+
 
 const jwtSecret = 'secret189230';
 
 app.post('/api/contracts', async (req, res) => {
-  const { userId, clientName, clientPhone, clientZipcode, clientCity, clientState, clientCountry, clientAddress, serviceDescription, serviceFee, paymentConditions, serviceDueDate, earlyTermination, executionDate, contractId }
- = req.body;
 
-const token = req.headers['jwt-token'];
-let tokenData;
-try {
-  tokenData = jwt.verify(token, jwtSecret);
-} catch (e) {
-  console.log(e);
-}
-const user = await User.findOne({
-  where: {
-    id: tokenData.userId
+  console.log(req.body);
+
+
+  const token = req.headers['jwt-token'];
+  let tokenData;
+  try {
+    tokenData = jwt.verify(token, jwtSecret);
+  } catch (e) {
+    console.log(e);
   }
-});
+  const user = await User.findOne({
+    where: {
+      id: tokenData.userId
+    }
+  });
 
-const newContract = await Contract.create({
-  userId: this.state.user.userId,
-  clientName: this.state.clientName,
-  clientPhone: this.state.clientPhone,
-  clientZipcode: this.state.clientZipcode,
-  clientCity: this.state.clientCity,
-  clientState: this.state.clientState,
-  clientCountry: this.state.clientCountry,
-  clientAddress: this.state.clientAddress,
-  serviceDescription: this.state.serviceDescription,
-  serviceFee: this.state.serviceFee,
-  paymentConditions: this.state.paymentConditions,
-  serviceDueDate: this.state.serviceDueDate,
-  earlyTermination: this.state.earlyTermination,
-  executionDate: this.state.executionDate
-})
-response.status(200).json(newContract)
+  const newContract = await Contract.create({
+    clientName: req.body.clientName,
+    clientPhone: req.body.clientPhone,
+    clientZipcode: req.body.clientZipcode,
+    clientCity: req.body.clientCity,
+    clientState: req.body.clientState,
+    clientCountry: req.body.clientCountry,
+    clientAddress: req.body.clientAddress,
+    serviceDescription: req.body.serviceDescription,
+    serviceFee: req.body.serviceFee,
+    paymentConditions: req.body.paymentConditions,
+    serviceDueDate: req.body.serviceDueDate,
+    earlyTermination: req.body.earlyTermination,
+    executionDate: req.body.executionDate
+  })
+  user.addContract(newContract);
+  // response.status(200).json(newContract)
+  res.status(200).json(newContract)
 })
 
 
