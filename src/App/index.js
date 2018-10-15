@@ -4,12 +4,9 @@ import Login from "../Login";
 import Register from '../Register';
 import PrivateRoute from "../PrivateRoute";
 import UserContracts from "../UserContracts";
-
-
-
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import ContractDetails from "../ContractDetails";
 import UserContract from "../UserContract";
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+
 
 class App extends Component {
   render() {
@@ -45,10 +42,6 @@ class App extends Component {
               <Route exact path='/' component={Login} />
               <Route exact path='/register' component={Register} />
               <PrivateRoute exact path='/my-contracts' component={UserContracts} />
-              <PrivateRoute exact path='/contracts/:id' component={UserContract} />
-
-
-
             </Switch>
 
           </div>
