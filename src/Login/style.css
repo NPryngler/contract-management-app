@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+}
+
+label {
+  font-size: 16px;
+  font-weight: bolder;
+  padding-left: 10px;
+}
+  
+input[type=text][input=password] {
+  width: 20%;
+  margin: 8px 0; 
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 16px;
+  resize: vertical;
+}
+
+textarea:focus, input:focus {
+  border: 2px solid #011627;
+  outline: none;
+}
+
+.home-wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+.welcome-container {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.welcome-container:hover{
+  background-color:#FF9F1C;
+}
+.login-container{
+  width: 50%;
+  padding: 15px;
+  margin: 0 auto;
+  text-align: center;
+}
+.image-container{
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+.vinyl-image{
+  margin-top: 80px;
+  width: 50%;
+  height: 50%;
+  animation: spin 3000ms infinite linear;
+}
+
+@keyframes spin {
+  from {
+      transform:rotate(0deg)
+  }
+  to {
+      transform:rotate(360deg)
+  }
+} 
+
+.login-button{
+  margin: 15px;
+  font-family: 'Roboto Condensed', sans-serif;
+  padding: 5px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: solid 1px #BFEDEF;
+  background-color: #011627;
+  color: #BFEDEF;
+  cursor: pointer;
+  outline: none;
+}
+
+.login-button:hover{
+  background-color: #BFEDEF;
+  border: solid 1px #011627;
+  color: #011627;
+}
+
+@media screen and (max-width:500px){
+  .login-container{
+      width: 75%;
+
+  }
+}

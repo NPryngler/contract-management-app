@@ -45,7 +45,7 @@ export default class UserContracts extends Component {
   }
 
   deleteContract = async (id) => {
-    const deleteContract = await fetch('/api/current-user/albums', {
+    const deleteContract = await fetch('/api/current-user/contracts', {
       method: "DELETE",
       body: JSON.stringify({ contractId: id }),
       headers: {
@@ -83,6 +83,7 @@ export default class UserContracts extends Component {
                   key={userContract.id - `${count += 1}`}
                   id={userContract.id}
                   type={userContract.type}
+                  name={userContract.name}
                   clientName={userContract.clientName}
                   clientEmail={userContract.clientEmail} clientPhone={userContract.clientPhone}
                   clientCity={userContract.clientCity}
@@ -94,6 +95,7 @@ export default class UserContracts extends Component {
                   paymentConditions={userContract.paymentConditions}
                   serviceDuedate={userContract.serviceDuedate}
                   earlyTermination={userContract.earlyTermination}
+                  earlyTerminationDescription={userContract.earlyTerminationDescription}
                   executionDate={userContract.executionDate}
                   filePath={userContract.filePath} onClickDeleteButton={() => this.deleteContract(userContract.id)}
                 />

@@ -7,6 +7,7 @@ import UserContracts from "../UserContracts";
 import UserContract from "../UserContract";
 import ContractsMenu from "../ContractsMenu";
 import ContractForm from "../ContractForm";
+import AddContract from "../AddContract";
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 
@@ -46,6 +47,8 @@ class App extends Component {
               <PrivateRoute exact path='/my-contracts' component={UserContracts} />
               <PrivateRoute exact path='/contracts-menu' component={ContractsMenu} />
               <PrivateRoute exact path='/contract-form' component={ContractForm} />
+              <PrivateRoute exact path='/add-contract' component={AddContract} />
+
             </div>
           </div>
         </Router >

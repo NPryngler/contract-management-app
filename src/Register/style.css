@@ -1,0 +1,53 @@
+.register-form {
+  width: 50%;
+  margin: 15px auto;
+  text-align: center;
+}
+
+.form{
+  text-align: left;
+}
+
+.register-label {
+  width: 100%;
+  font-size: 16px;
+  font-weight: bolder
+}
+  
+input[type=text][type=password]{
+  font-size: 16px;
+  width: 40%;
+  text-align: left;
+  resize: vertical;
+  color: black;
+  outline: none;
+}
+
+.input-container{
+  padding-top: 7px;
+  padding-bottom: 10px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.register-button{
+  margin: 0 auto;
+  font-family: 'Roboto Condensed', sans-serif;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: #FF9F1C;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+}
+.register-button:hover{
+  background-color: #011627;
+  color: #BFEDEF
+}
+
+.error-message{
+  padding-left: 10px;
+  text-align: center;
+  margin: 0 auto;
+}

@@ -37,7 +37,7 @@ export default class Register extends Component {
 
   isEmailPasswordValid = () => {
     let isValid = true;
-    let emailRegex = /@/;
+    // let emailRegex = /@/;
     let specialCharacterPattern = /[!@()#$%&'*+/=?^_`{|}~-]+/;
     let numberPattern = /\d/;
     let usernameRedBorder;
@@ -52,11 +52,11 @@ export default class Register extends Component {
       usernameRedBorder = 'solid 2px red';
       usernameMessage = 'A username is required for registration';
     }
-    if (!emailRegex.exec(this.state.email)) {
-      isValid = false;
-      emailRedBorder = 'solid 2px red';
-      emailMessage = 'Email address is invalid!';
-    }
+    // if (!emailRegex.exec(this.state.email)) {
+    //   isValid = false;
+    //   emailRedBorder = 'solid 2px red';
+    //   emailMessage = 'Email address is invalid!';
+    // }
     if (this.state.password.length < 7 || !specialCharacterPattern.exec(this.state.password) || !numberPattern.exec(this.state.password)) {
       isValid = false;
       passwordRedBorder = 'solid 2px red';
@@ -175,7 +175,7 @@ export default class Register extends Component {
             </input>
           </div>
           <div className="input-container">
-            <label className="register-label">City: </label>
+            <label className="register-label">Zipcode: </label>
             <br />
             <input type='text' placeholder='City' onChange={this.onInputChange} name='userZipcode' pattern="[0-9]{5}" value={this.state.userZipcode}>
             </input>

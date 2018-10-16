@@ -18,6 +18,8 @@ export default class UserContract extends Component {
         <div className="contract-summary-container">
           <div className="contract-type">{this.props.type}</div>
           <div className="client-name">{this.props.clientName}</div>
+          <div className="client-name">{this.props.executionDate}</div>
+
         </div>
         <Popup className="contract-details"
           trigger={<button className="view-details-button">See More</button>}
@@ -38,6 +40,7 @@ export default class UserContract extends Component {
               <h2>Payment conditions: {this.props.paymentConditions}</h2>
               <h2>Service delivery date: {this.props.serviceDueDate}</h2>
               <h2>Early termination clause: {this.props.earlyTermination}</h2>
+              <h2>Early termination clause description : {this.props.earlyTerminationDescription}</h2>
               <h2>Execution date: {this.props.executionDate}</h2>
               <h2>Contract file: {this.props.filePath}</h2>
             </div>

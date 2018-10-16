@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./style.css";
-import ContractViewSoftDev from "../ContractViewSoftDev"
+import ContractViewSoftDev from "../ContractViewSoftDev";
+import ContractViewDesign from "../ContractViewDesign";
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 export default class ContractForm extends Component {
@@ -9,9 +10,11 @@ export default class ContractForm extends Component {
     const token = localStorage.getItem('user-jwt');
     this.state = {
       user: {},
-      type: "Software Development Agreement",
+      type: 'Software Development Agreement',
       isLoggedIn: token,
-      // isUserAParty: true,
+      isUserAParty: true,
+      name: '',
+      newName: '',
       clientName: "Client's complete name ",
       clientPhone: "+1(000)000 0000",
       clientEmail: "Client's e-mail address",
@@ -48,19 +51,20 @@ export default class ContractForm extends Component {
 
 
   handleChange = (event) => {
+    event.preventDefault();
     this.setState({
       [event.target.name]: event.target.value
     })
   }
-
-
-
 
   saveContract = async (event) => {
     event.preventDefault();
     this.fetchUser();
     const requestBody = JSON.stringify({
       //
+      type: this.state.type,
+      name: this.state.name,
+      newName: this.state.newName,
       clientName: this.state.clientName,
       clientPhone: this.state.clientPhone,
       clientZipcode: this.state.clientZipcode,
@@ -97,16 +101,36 @@ export default class ContractForm extends Component {
           <div className="input-container">
             <div className="input-container-form">
               <form onSubmit={this.saveContract}>
-                {/* <div className="input-wrapper">
-                  <label className="input-title">Freelancer's complete name</label>
-                  <input
-                    className="title-input"
-                    placeholder="Freelancer complete name"
+                <div className="input-wrapper">
+                  <label className="input-title">Select a contract type:
+                    <select className="select-wrapper"
+                      name="type"
+                      value={this.state.type} onChange={this.handleChange}>
+                      <option value='Software Development Agreement'>Software Development Agreement</option>
+                      <option value='Design Services Agreement'>Design Services Agreement</option>
+                    </select>
+                  </label>
+                </div>
+                <div className="input-wrapper">
+                  <label className="input-title">Freelancer's complete name </label>
+                  <select className="select-wrapper"
                     name="name"
-                    value={this.state.user.name}
                     onChange={this.handleChange}>
-                  </input>
-                </div> */}
+                    <option value={this.state.user.name}>Use user info</option>
+                    <option value='new freelancer'>new freelancer</option>
+                  </select>
+                  {this.state.name === 'new freelancer' && (
+                    <div>
+                    <input
+                      className="title-input"
+                      placeholder="Freelancer complete name"
+                      name="name"
+                      value={this.state.name}
+                      onChange={this.handleChange}>
+                    </input>
+                    </div>
+                  )}
+                </div>
                 <div className="input-wrapper">
                   <label className="input-title">Client's complete name</label>
                   <input
@@ -194,19 +218,39 @@ export default class ContractForm extends Component {
           </div>
         </div>
         <div className="contract-view-wrapper">
+         {this.state.type === 'Software Development Agreement' && (
           <ContractViewSoftDev
             userProps={this.state.user}
-            freelancerNameProps={this.state.user.name}
+            userNameProps={this.state.user.name}
+            newNameProps={this.state.newName}
             clientNameProps={this.state.clientName}
             serviceDescriptionProps={this.state.serviceDescription}
             serviceDueDateProps={this.state.serviceDueDate}
             serviceFeeProps={this.state.serviceFee}
             paymentConditionsProps={this.state.paymentConditions}
             earlyTerminationProps={this.state.earlyTermination}
-            stateLocationProps={this.state.stateLocation}
+            stateLocationProps={this.state.user.userState}
             executionDateProps={this.state.executionDate}
           />
+          )}
+          {this.state.type === 'Design Services Agreement' && (
+          <ContractViewDesign
+            userProps={this.state.user}
+            userNameProps={this.state.user.name}
+            newNameProps={this.state.newName}
+            clientNameProps={this.state.clientName}
+            serviceDescriptionProps={this.state.serviceDescription}
+            serviceDueDateProps={this.state.serviceDueDate}
+            serviceFeeProps={this.state.serviceFee}
+            paymentConditionsProps={this.state.paymentConditions}
+            earlyTerminationProps={this.state.earlyTermination}
+            stateLocationProps={this.state.user.userState}
+            executionDateProps={this.state.executionDate}
+          />
+          )}
+    
         </div>
+      
       </div>
     )
   }

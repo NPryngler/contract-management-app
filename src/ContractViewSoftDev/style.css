@@ -1,0 +1,39 @@
+.contract-view{
+  padding: 30px;
+  width: 100%;
+  text-align: justify
+}
+.contract-title{
+  text-align: center;
+  font-size: 16px;
+}
+.output {
+  color: red;
+  font-weight: 700;
+  font-size: 12px;
+}
+.clause-section-title{
+  font-weight: bold;
+  text-align: center;
+  font-size: 14px;
+}
+
+.clause-content {
+  font-size: 12px;
+
+}
+
+.signature-container-client{
+  border-top: 2px solid black;
+  height: 50px;
+}
+.signature-container-freelancer{
+  border-bottom: 2px solid black;
+  height: 50px;
+}
+.date-location{
+  height: 80px;
+}
+.service-description-wrapper{
+  overflow-x: 0;
+}

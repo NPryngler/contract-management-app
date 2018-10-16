@@ -23,8 +23,10 @@ const User = sequelize.define('user', {
 
 const Contract = sequelize.define('contract', {
   type: Sequelize.TEXT,
+  name: Sequelize.TEXT,
+  newName: Sequelize.TEXT,
   clientName: Sequelize.TEXT,
-  clientEmail: Sequelize.TEXT,
+  clientEmail: Sequelize.STRING,
   clientPhone: Sequelize.STRING,
   clientZipcode: Sequelize.STRING,
   clientCity: Sequelize.TEXT,

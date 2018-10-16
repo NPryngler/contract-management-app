@@ -39,6 +39,9 @@ app.post('/api/contracts', async (req, res) => {
   });
 
   const newContract = await Contract.create({
+    type: req.body.type,
+    name: req.body.name,
+    newName: req.body.newName,
     clientName: req.body.clientName,
     clientPhone: req.body.clientPhone,
     clientZipcode: req.body.clientZipcode,
@@ -51,6 +54,7 @@ app.post('/api/contracts', async (req, res) => {
     paymentConditions: req.body.paymentConditions,
     serviceDueDate: req.body.serviceDueDate,
     earlyTermination: req.body.earlyTermination,
+    earlyTerminationDescription: req.body.earlyTerminationDescription,
     executionDate: req.body.executionDate
   })
   user.addContract(newContract);
@@ -176,7 +180,7 @@ app.get('/api/current-user/contracts', async (req, res) => {
   });
   res.json(userContracts);
 });
-
+//test
 app.delete('/api/current-user/contracts', async (req, res) => {
   const token = req.headers['jwt-token'];
   let tokenData;
@@ -228,21 +232,7 @@ app.delete('/api/current-user/contracts', async (req, res) => {
     res.json(user);
   });
 
-  app.get('/api/users/:id/contracts', async (req, res) => {
-    const id = req.params.id;
-    const userContracts = await Contract.findAll({
-      include: [
-        {
-          model: User,
-          where: {
-            id: id
-          }
-        }
-      ]
-    });
-    res.json(userContracts);
-  });
-
+  
   await UserContracts.destroy({
     where: {
       $and: [

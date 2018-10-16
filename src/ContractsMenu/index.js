@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./style.css";
 import ContractForm from "../ContractForm";
+import AddContract from "../AddContract";
 import { BrowserRouter as PrivateRoute, Router, Route, Link } from 'react-router-dom';
 
 export default class ContractsMenu extends Component {
@@ -21,7 +22,8 @@ export default class ContractsMenu extends Component {
           <div className="make-new-contract-container">make new contract
         <button className="form-type-btn"><Link className="form-link" to='/contract-form'>make new </Link></button>
         </div>
-          <div className="add-existing-contract-container">
+          <div className="add-existing-contract-container">add existing contract
+          <button className="form-type-btn"><Link className="form-link" to='/add-contract'>add existing </Link></button>
           </div>
           
         </div>
