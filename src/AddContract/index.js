@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import "./style.css";
 import Popup from "reactjs-popup";
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 export default class AddContract extends Component {
   constructor(props) {
     super(props);
     const token = localStorage.getItem('user-jwt');
     this.state = {
+      redirectToReferrer: false,
       user: {},
+      contract: {},
       type: '',
       isLoggedIn: token,
       isUserAParty: true,
@@ -24,13 +26,15 @@ export default class AddContract extends Component {
       clientAddress: '',
       serviceDescription: '',
       serviceDueDate: '',
-      serviceFee: '',
+      serviceFee: 0,
       paymentConditions: '',
       earlyTermination: '',
       stateLocation: '',
       executionDate: '',
     }
   }
+
+
 
   componentDidMount = async () => {
     this.fetchUser();
@@ -56,11 +60,12 @@ export default class AddContract extends Component {
     })
   }
 
+ 
   saveContract = async (event) => {
     event.preventDefault();
     this.fetchUser();
+
     const requestBody = JSON.stringify({
-      //
       type: this.state.type,
       name: this.state.name,
       newName: this.state.newName,
@@ -79,7 +84,9 @@ export default class AddContract extends Component {
       earlyTerminationDescription: this.state.earlyTerminationDescription,
       executionDate: this.state.executionDate
     });
-    const response = await fetch('api/contracts', {
+
+
+    const response = await fetch('/api/contracts', {
       method: 'POST',
       body: requestBody,
       headers: {
@@ -88,9 +95,21 @@ export default class AddContract extends Component {
       }
     });
     console.log(requestBody);
+    this.setState({
+      redirectToReferrer: true,
+    });
+
   }
 
+
+
   render() {
+    const { from } = this.props.location.state || { from: { pathname: "/my-contracts" } };
+    const { redirectToReferrer } = this.state;
+
+    if (redirectToReferrer) {
+      return <Redirect to={from} />;
+    }
 
     return (
       <div className="forms-wrapper">
@@ -109,7 +128,7 @@ export default class AddContract extends Component {
                       onChange={this.handleChange}>
                     </input>
                   </label>
-                </div>
+                </div>  
                 <div className="input-wrapper">
                   <label className="input-title">Contracted party name</label>
                   <select className="select-wrapper"
@@ -273,7 +292,7 @@ export default class AddContract extends Component {
                   </input>
                 </div>
                 <div className="input-wrapper">
-                  <label className="input-title">When is this contract being signed?</label>
+                  <label className="input-title">Signature date</label>
                   <input
                     className="title-input"
                     type="date"
@@ -307,17 +326,17 @@ export default class AddContract extends Component {
                   <h2>Early termination clause: {this.state.earlyTermination}</h2>
                   <h2>Early termination clause description : {this.state.earlyTerminationDescription}</h2>
                   <h2>Execution date: {this.state.executionDate}</h2>
-                  <h2>Contract file: {this.state.filePath}</h2>
+
                 </div>
               </div>
             </Popup>
             <div>
               <button className="view-details-button"
-              onClick={this.saveContract}>Save</button>
+                onClick={this.saveContract}>Save</button>
             </div>
           </div>
         </div>
-      </div>
+      </div >
     )
   }
 }

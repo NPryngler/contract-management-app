@@ -1,9 +1,19 @@
 const express = require('express');
-const multer = require('multer')
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { Contract, User, UserContracts } = require('./models');
+const nodemaile = require('nodemailer');
+const fileUpload = require('express-fileupload');
+const cors = require('cors');
+const cloudinary = require('cloudinary');
+
+// const AWS = require('aws-sdk');
+// const fs = require('fs');
+// const fileType = require('file-type');
+// const bluebird = require('bluebird');
+// const multiparty = require('multiparty');
+
 const PORT = process.env.PORT || 5678;
 
 const app = express();
@@ -11,14 +21,55 @@ const path = require('path');
 
 app.use("/", express.static("./build/"));
 app.use(bodyParser.json());
-app.use((request, response, next) => {
-  response.header("Access-Control-Allow-Origin", "*");
-  response.header("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
 
 
 const jwtSecret = 'secret189230';
+
+
+//e-mail
+
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: process.env.EMAIL_ADDRESS,
+//     pass: process.env.EMAIL_PASSWORD
+//   }
+// })
+
+cloudinary.config({ 
+  cloud_name: process.env.CLOUD_NAME, 
+  api_key: process.env.CLOUD_APIKEY, 
+  api_secret: process.env.CLOUD_APISECRET 
+});
+
+// configure the keys for accessing AWS
+
+// AWS.config.update({
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+// });
+// configure AWS to work with promises
+// AWS.config.setPromisesDependency(bluebird);
+
+// create S3 instance
+
+// const s3 = new AWS.S3();
+
+// abstracts function to upload a file returning a promise
+
+// const uploadFile = (buffer, name, type) => {
+//   const params = {
+//     ACL: 'public-read',
+//     Body: buffer,
+//     Bucket: process.env.DANIK_S3_BUCKET,
+//     ContentType: type.mime,
+//     Key: `${name}.${type.ext}`
+//   };
+//   return s3.upload(params).promise();
+// };
+
+// Define POST route
+
 
 app.post('/api/contracts', async (req, res) => {
 
@@ -37,6 +88,31 @@ app.post('/api/contracts', async (req, res) => {
       id: tokenData.userId
     }
   });
+  //upload the file
+  // let file = req.files.file;
+  // file.mv(`${__dirname}/public/${req.body.filename}.pdf`, function(err) {
+  //   if (err) {
+  //     return res.status(500).send(err);
+  //   }
+
+  //   res.json({file: `public/${req.body.filename}.pdf`});
+  // });
+
+  // const form = new multiparty.Form();
+  // form.parse(req, async (error, fields, files) => {
+  //   if (error) throw new Error(error);
+  //   try {
+  //     const path = files.file[0].path;
+  //     const buffer = fs.readFileSync(path);
+  //     const type = fileType(buffer);
+  //     const timestamp = Date.now().toString();
+  //     const fileName = `bucketFolder/${timestamp}-lg`;
+  //     const data = await uploadFile(buffer, fileName, type);
+  //     return res.status(200).send(data);
+  //   } catch (error) {
+  //     return res.status(400).send(error);
+  //   }
+  // });
 
   const newContract = await Contract.create({
     type: req.body.type,
@@ -55,12 +131,15 @@ app.post('/api/contracts', async (req, res) => {
     serviceDueDate: req.body.serviceDueDate,
     earlyTermination: req.body.earlyTermination,
     earlyTerminationDescription: req.body.earlyTerminationDescription,
-    executionDate: req.body.executionDate
+    executionDate: req.body.executionDate,
+    fileUrl: req.body.filename
+    //file url = variable set above
   })
   user.addContract(newContract);
-  // response.status(200).json(newContract)
   res.status(200).json(newContract)
 })
+
+
 
 
 app.get('/api/contracts', async (req, res) => {
@@ -232,7 +311,7 @@ app.delete('/api/current-user/contracts', async (req, res) => {
     res.json(user);
   });
 
-  
+
   await UserContracts.destroy({
     where: {
       $and: [

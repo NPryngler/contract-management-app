@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import "./style.css";
 import ContractViewSoftDev from "../ContractViewSoftDev";
 import ContractViewDesign from "../ContractViewDesign";
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 export default class ContractForm extends Component {
   constructor(props) {
     super(props);
     const token = localStorage.getItem('user-jwt');
     this.state = {
+      redirectToReferrer: false,
+      contract: {},
       user: {},
       type: 'Software Development Agreement',
       isLoggedIn: token,
-      isUserAParty: true,
       name: '',
       newName: '',
       clientName: "Client's complete name ",
@@ -89,10 +90,21 @@ export default class ContractForm extends Component {
       }
     });
     console.log(requestBody);
+    this.setState({
+      redirectToReferrer: true,
+    });
 
+    
   }
 
   render() {
+
+    const { from } = this.props.location.state || { from: { pathname: "/my-contracts" } };
+    const { redirectToReferrer } = this.state;
+
+    if (redirectToReferrer) {
+      return <Redirect to={from} />;
+    }
 
     return (
       <div className="forms-wrapper">
