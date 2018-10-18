@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./style.css";
 import Popup from "reactjs-popup";
+// import UploadFile from "../UploadFile";
 import { Redirect } from 'react-router-dom';
 
 export default class AddContract extends Component {
@@ -31,6 +32,7 @@ export default class AddContract extends Component {
       earlyTermination: '',
       stateLocation: '',
       executionDate: '',
+      fileUrl: ''
     }
   }
 
@@ -60,6 +62,11 @@ export default class AddContract extends Component {
     })
   }
 
+  getImageURL = (url) => {
+    this.setState({
+        fileUrl: url
+    })
+}
  
   saveContract = async (event) => {
     event.preventDefault();
@@ -100,6 +107,7 @@ export default class AddContract extends Component {
     });
 
   }
+
 
 
 
@@ -302,6 +310,7 @@ export default class AddContract extends Component {
                     onChange={this.handleChange}>
                   </input>
                 </div>
+                {/* <UploadFile getFileURL={this.getFileURL}/> */}
               </form>
             </div>
             <Popup className="contract-details"

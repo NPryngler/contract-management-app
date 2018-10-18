@@ -1,0 +1,17 @@
+*{
+  box-sizing: border-box;
+}
+
+.user-contracts-container{
+  display: flex;
+  flex-flow: column wrap;
+  text-align: center;
+}
+.user-profile-container{
+  text-align: center;
+}
+.user-contracts{
+  width: 60%;
+  margin: 0 auto;
+}
+

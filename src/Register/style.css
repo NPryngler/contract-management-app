@@ -1,7 +1,8 @@
 .register-form {
-  width: 50%;
+  width: 60%;
   margin: 15px auto;
   text-align: center;
+  border: 1px solid;
 }
 
 .form{
@@ -21,29 +22,19 @@ input[type=text][type=password]{
   resize: vertical;
   color: black;
   outline: none;
+  padding: 5px;
 }
 
+
 .input-container{
-  padding-top: 7px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   margin: 0 auto;
   text-align: center;
 }
 
 .register-button{
   margin: 0 auto;
-  font-family: 'Roboto Condensed', sans-serif;
-  padding: 10px 15px;
-  font-size: 14px;
-  border-radius: 4px;
-  background-color: #FF9F1C;
-  cursor: pointer;
-  text-align: center;
-  outline: none;
-}
-.register-button:hover{
-  background-color: #011627;
-  color: #BFEDEF
 }
 
 .error-message{

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import "./style.css";
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import UserContract from "../UserContract";
-import ContractsMenu from "../ContractsMenu"
+import ContractsMenu from "../ContractsMenu";
+import UpdateUser from "../UpdateUser";
+import Popup from "reactjs-popup";
 
 export default class UserContracts extends Component {
   constructor(props) {
@@ -62,19 +64,35 @@ export default class UserContracts extends Component {
       <div>
         <div className="user-contracts-container">
           <h1 className='personalize-welcome'>Welcome {this.state.user.name}!</h1>
-          <div>
-            <button className='update-profile-button'><Link className='update-link' to='/my-contracts/update'>Update Your Profile</Link></button>
-          </div>
-          <div className="user-container">
-            <div className="user-info">
-              <h2>Username: {this.state.user.username}</h2>
-              <h2>Email: {this.state.user.email}</h2>
-              <h2>City: {this.state.user.city}</h2>
+          <div className="user-profile-container">
+            <div>
+              <button className='update-profile-button'><Link className='update-link' to='/my-contracts/update-user'>Update User Profile</Link></button>
             </div>
+            <Popup className="user-details"
+            trigger={<button className="view-details-button">See Profile Info</button>}
+            modal
+            closeOnDocumentClick>
+            <div className="user-details-container">
+              <div className="contract-info">
+                <h3>Name: {this.state.user.name}</h3>
+                <h3>Email: {this.state.user.userEmail}</h3>
+                <h3>Username: {this.state.user.username}</h3>
+                <h3>Zipcode: {this.state.user.userZipcode}</h3>
+                <h3>City: {this.state.user.userCity}</h3>
+                <h3>State: {this.state.user.userState}</h3>
+                <h3>Country: {this.state.user.userCountry}</h3>
+                <h3>Address: {this.state.user.userAddress}</h3>
+                <h3>Birthdate: {this.state.user.birthDate}</h3>
+              </div>
+            </div>
+          </Popup>
           </div>
           <div className="contracts-summary-container">
             <div className='user-contracts'>
               <h2 className='user-contracts-h2'>Your Contracts</h2>
+              <div className='add-button-div'>
+                <button className='addition-button'> <Link className='addition-link' to='/contracts-menu'>Add New Contract</Link></button>
+              </div>
             </div>
             {this.state.userContracts.length > 0 && this.state.userContracts.map(userContract => {
               let count = 0;
@@ -103,10 +121,8 @@ export default class UserContracts extends Component {
             }
             )}
           </div>
-          <div className='add-button-div'>
-            <button className='addition-button'> <Link className='addition-link' to='/contracts-menu'>Add New Contract</Link></button>
-          </div>
         </div>
+
         <Route exact path="/contracts-menu" component={ContractsMenu} />
       </div>
     )

@@ -15,6 +15,9 @@ input[type=text][input=password] {
   font-size: 16px;
   resize: vertical;
 }
+input:hover{
+  background: #BFEDEF;
+}
 
 textarea:focus, input:focus {
   border: 2px solid #011627;
@@ -31,10 +34,9 @@ textarea:focus, input:focus {
   text-align: center;
   border: 1px solid black;
   border-radius: 10px;
+  background-color:#20FC8F;
 }
-.welcome-container:hover{
-  background-color:#FF9F1C;
-}
+
 .login-container{
   width: 50%;
   padding: 15px;

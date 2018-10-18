@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 .App{
-  font-family: 'Merriweather', serif;
+  font-family: 'Lato', sans-serif;
   margin: 0 auto;
   width: 100%;
 }
@@ -13,12 +13,11 @@
 }
 .welcome-screen-title {
   font-size: 50px;
-  text-decoration: underline;
   text-align: center;
   width: 100%;
   margin: 10px auto;
   padding: 20px;
-  color: #011627;
+  color: #008BF8;
 }
 
 .nav-links {
@@ -29,13 +28,6 @@
 
 }
 
-.nav-links {
-  background-color: #011627;
-  text-align: center;
-  margin: 10px auto;
-  padding: 15px;
-
-}
 .link-wrapper{
   display: inline;
 }
@@ -47,8 +39,22 @@
 }
 
 .link:hover{
-  color: #FF9F1C;
+  color: #008BF8;
   font-style: bold;
+}
+
+button{
+  font-family: 'Lato', sans-serif;
+  padding: 10px 30px;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: #008BF8;
+  cursor: pointer;
+  outline: none;
+}
+button:hover{
+  background-color: #DC0073;
+  color: #BFEDEF
 }
 
 

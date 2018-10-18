@@ -210,12 +210,12 @@ export default class Register extends Component {
             <input type='date' placeholder='Birthdate' onChange={this.onInputChange} name='birthDate' value={this.state.birthDate} min="1920-01-01" max="2010-01-01">
             </input>
           </div>
-          <div>
+          <div className="register-button">
             {this.state.valid && (
-              <button className="register-button">Register</button>
+              <button >Register</button>
             )}
             {!this.state.valid && (
-              <button className="register-button" onClick={this.isValid}>Ok</button>
+              <button onClick={this.isValid}>Ok</button>
             )}
             {
               this.state.message &&

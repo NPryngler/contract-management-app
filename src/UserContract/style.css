@@ -1,0 +1,23 @@
+table, th, td {
+  border: 1px solid black;
+  text-align: center;
+}
+.contract-details {
+  display: flex;
+  justify-content: center;
+}
+.buttons-container{
+  display: flex;
+  width: 100%;
+}
+.contract-summary-container{
+  width: 100%;
+}
+.contract-container{
+  display: flex;
+  flex-wrap: flex;
+  width: 90%;
+  margin: 0 auto;
+  justify-content: center;
+  
+}

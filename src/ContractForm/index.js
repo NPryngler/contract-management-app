@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "./style.css";
 import ContractViewSoftDev from "../ContractViewSoftDev";
 import ContractViewDesign from "../ContractViewDesign";
+import ContractPDF from "../ContractPDF";
 import { Redirect } from 'react-router-dom';
 
 export default class ContractForm extends Component {
@@ -10,6 +11,7 @@ export default class ContractForm extends Component {
     const token = localStorage.getItem('user-jwt');
     this.state = {
       redirectToReferrer: false,
+      makePdf: false,
       contract: {},
       user: {},
       type: 'Software Development Agreement',
@@ -56,6 +58,14 @@ export default class ContractForm extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
+  }
+
+  makePdf = (event) => {
+    this.setState({
+      makePdf: true,
+    })
+    console.log('click');
+    
   }
 
   saveContract = async (event) => {
@@ -226,6 +236,14 @@ export default class ContractForm extends Component {
                     </button>
                 </div>
               </form>
+              <div className="button-pdf">
+                  <button
+                    className="create-pdf"
+                    onClick={this.makePdf}
+                    type="submit">
+                    PDF file
+                    </button>
+                </div>
             </div>
           </div>
         </div>
@@ -245,6 +263,8 @@ export default class ContractForm extends Component {
             executionDateProps={this.state.executionDate}
           />
           )}
+
+
           {this.state.type === 'Design Services Agreement' && (
           <ContractViewDesign
             userProps={this.state.user}
@@ -262,6 +282,23 @@ export default class ContractForm extends Component {
           )}
     
         </div>
+        <div>
+        {this.state.makePdf === true &&this.state.type === 'Software Development Agreement' && (
+          <ContractPDF
+            userProps={this.state.user}
+            userNameProps={this.state.user.name}
+            newNameProps={this.state.newName}
+            clientNameProps={this.state.clientName}
+            serviceDescriptionProps={this.state.serviceDescription}
+            serviceDueDateProps={this.state.serviceDueDate}
+            serviceFeeProps={this.state.serviceFee}
+            paymentConditionsProps={this.state.paymentConditions}
+            earlyTerminationProps={this.state.earlyTermination}
+            stateLocationProps={this.state.user.userState}
+            executionDateProps={this.state.executionDate}
+          />
+          )}
+          </div>
       
       </div>
     )
