@@ -9,7 +9,6 @@ import ContractsMenu from "../ContractsMenu";
 import ContractForm from "../ContractForm";
 import AddContract from "../AddContract";
 import UpdateUser from "../UpdateUser";
-import UpdateContract from "../UpdateContract";
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 
@@ -47,11 +46,12 @@ class App extends Component {
               <Route exact path='/' component={Login} />
               <Route exact path='/register' component={Register} />
               <PrivateRoute exact path='/my-contracts' component={UserContracts} />
+              <PrivateRoute exact path='/contracts/:id' component={UserContract} />
               <PrivateRoute exact path='/contracts-menu' component={ContractsMenu} />
               <PrivateRoute exact path='/contract-form' component={ContractForm} />
               <PrivateRoute exact path='/add-contract' component={AddContract} />
               <PrivateRoute exact path='/my-contracts/update-user' component={UpdateUser} />
-              <PrivateRoute exact path='/my-contracts/update-contract' component={UpdateContract} />
+              
             </div>
           </div>
         </Router >

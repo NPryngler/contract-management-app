@@ -6,34 +6,34 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 export default class UserContract extends Component {
 
-
-  onClick = async (id) => {
-    this.setState({
-      id: id
-    });
-    this.getContractId(id);
-  }
   render() {
     return (
-
       <div className="contract-container">
         <div className="contract-summary-container">
-          <table>
-            <tr>
-              <th>Contract type</th>
-              <th>Client name</th>
-              <th>Contract date</th>
-              <th>Delivery date</th>
-              <th>Status</th>
-            </tr>
-            <tr>
-              <td>{this.props.type}</td>
-              <td>{this.props.clientName}</td>
-              <td>{this.props.executionDate}</td>
-              <td>{this.props.serviceDueDate}</td>
-            </tr>
-          </table>
+          <h2 className="title">Summary</h2>
+          <div className='contract-summary-table'>
+            <div className="item">
+              <div className="table-cell"><h3>Contract Type</h3></div>
+              <div className="table-cell">{this.props.type}</div>
+            </div>
+
+            <div className="item">
+              <div className="table-cell"><h3>Client name</h3></div>
+              <div className="table-cell">{this.props.clientName}</div>
+            </div>
+
+            <div className="item">
+              <div className="table-cell"><h3>Contract date</h3></div>
+              <div className="table-cell">{this.props.executionDate}</div>
+            </div>
+
+            <div className="item">
+              <div className="table-cell"><h3>Status</h3></div>
+              <div className="table-cell">{this.props.contractStatus}</div>
+            </div>
+          </div>
         </div>
+
         <div className="buttons-container">
           <Popup className="contract-details"
             trigger={<button className="view-details-button">See More</button>}
@@ -56,18 +56,15 @@ export default class UserContract extends Component {
                 <h3>Early termination clause: {this.props.earlyTermination}</h3>
                 <h3>Early termination clause description : {this.props.earlyTerminationDescription}</h3>
                 <h3>Execution date: {this.props.executionDate}</h3>
-                <h3>Contract file: {this.props.filePath}</h3>
+                <h3>Status: {this.props.contractStatus}</h3>
               </div>
             </div>
           </Popup>
           <div>
             <button className='delete-button' onClick={this.props.onClickDeleteButton}>Delete from contracts</button>
           </div>
-          <div>
-            <button className='update-button' onClick={this.onClick}><Link className="link" to='/my-contracts/update-contract'>Update contract</Link></button>
-          </div>
         </div>
-      </div>
+      </div >
     )
 
   }

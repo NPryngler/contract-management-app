@@ -1,0 +1,23 @@
+*{
+  box-sizing: border-box;
+}
+.form-container{
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  border: 2px solid black;
+  margin-bottom: 10%;
+  padding: 20px;
+
+}
+.button-container{
+ display: flex;
+ justify-content: center;
+}
+.contract-details{
+
+}
+.info-title{
+  font-weight: bold;
+  text-align: left;
+}

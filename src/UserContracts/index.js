@@ -46,6 +46,8 @@ export default class UserContracts extends Component {
     });
   }
 
+ 
+
   deleteContract = async (id) => {
     const deleteContract = await fetch('/api/current-user/contracts', {
       method: "DELETE",
@@ -115,14 +117,15 @@ export default class UserContracts extends Component {
                   earlyTermination={userContract.earlyTermination}
                   earlyTerminationDescription={userContract.earlyTerminationDescription}
                   executionDate={userContract.executionDate}
-                  filePath={userContract.filePath} onClickDeleteButton={() => this.deleteContract(userContract.id)}
+                  filePath={userContract.filePath}
+                  contractStatus={userContract.contractStatus}
+                   onClickDeleteButton={() => this.deleteContract(userContract.id)}
                 />
               )
             }
             )}
           </div>
         </div>
-
         <Route exact path="/contracts-menu" component={ContractsMenu} />
       </div>
     )

@@ -51,10 +51,13 @@ button{
   background-color: #008BF8;
   cursor: pointer;
   outline: none;
+  color: black;
 }
 button:hover{
   background-color: #DC0073;
   color: #BFEDEF
 }
 
-
+a {
+  text-decoration: none;
+}
