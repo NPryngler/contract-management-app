@@ -5,15 +5,18 @@ import Popup from "reactjs-popup";
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 export default class UserContract extends Component {
-  contractClick = async (id) => {
+
+
+  onClick = async (id) => {
     this.setState({
       id: id
     });
+    this.getContractId(id);
   }
   render() {
     return (
 
-      <div className="contract-container" onClick={this.contractClick}>
+      <div className="contract-container">
         <div className="contract-summary-container">
           <table>
             <tr>
@@ -61,7 +64,7 @@ export default class UserContract extends Component {
             <button className='delete-button' onClick={this.props.onClickDeleteButton}>Delete from contracts</button>
           </div>
           <div>
-            <button className='update-button' onClick={this.props.onClickDeleteButton}>Update contract</button>
+            <button className='update-button' onClick={this.onClick}><Link className="link" to='/my-contracts/update-contract'>Update contract</Link></button>
           </div>
         </div>
       </div>

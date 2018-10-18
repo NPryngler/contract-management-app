@@ -21,6 +21,8 @@ app.use(bodyParser.json());
 
 const jwtSecret = 'secret189230';
 
+
+//add contract
 app.post('/api/contracts', async (req, res) => {
 
   console.log(req.body);
@@ -57,14 +59,100 @@ app.post('/api/contracts', async (req, res) => {
     earlyTermination: req.body.earlyTermination,
     earlyTerminationDescription: req.body.earlyTerminationDescription,
     executionDate: req.body.executionDate,
-    fileUrl: req.body.filename
+    fileUrl: req.body.filename,
+    contractStatus: req.body.contractStatus
     //file url = variable set above
   })
   user.addContract(newContract);
   res.status(200).json(newContract)
 })
 
+//update contract
+app.put('/api/contracts/:id', async (req, res) => { 
+  const { type, name, newName, clientName, clientPhone, clientZipcode, clientCity, clientState, clientCountry, clientAddress, serviceDescription,serviceFee, serviceDueDate, paymentConditions, earlyTermination, earlyTerminationDescription, executionDate, contractStatus } = req.body;
+  const id = req.params.id;
+  const contract = await Contract.findOne({
+    where:{
+      id: ContractId
+    }
+  });
 
+  if (type) {
+    contract.type = type;
+  }
+
+  if (name) {
+    contract.name = name;
+  }
+
+  if (newName) {
+    contract.newName = newName;
+  }
+
+  if (clientName) {
+    contract.clientName = clientName;
+  }
+
+  if (clientPhone) {
+    contract.clientPhone = clientPhone;
+  }
+
+  if (clientZipcode) {
+    contract.clientZipcode = clientZipcode;
+  }
+
+  if (clientCity) {
+    contract.clientCity = clientCity;
+  }
+
+  if (clientState) {
+    contract.clientState = clientState;
+  }
+
+  if (clientCountry) {
+    contract.clientCountry = clientCountry;
+  }
+
+  if (clientAddress) {
+    contract.clientAddress = clientAddress;
+  }
+
+  if (serviceDescription) {
+    contract.serviceDescription = serviceDescription;
+  }
+
+  if (serviceFee) {
+    contract.serviceFee = serviceFee;
+  }
+
+  if (serviceDueDate) {
+    contract.type = type;
+  }
+
+  if (paymentConditions) {
+    contract.paymentConditions = paymentConditions;
+  }
+
+  if (earlyTermination) {
+    contract.earlyTermination = earlyTermination;
+  }
+
+  if (earlyTerminationDescription) {
+    contract.earlyTerminationDescription = earlyTerminationDescription;
+  }
+
+  if (executionDate) {
+    contract.executionDate = executionDate;
+  }
+  
+  if (contractStatus) {
+    contract.contractStatus = contractStatus;
+  }
+
+  await contract.save();
+
+  res.sendStatus(200);
+});
 
 
 app.get('/api/contracts', async (req, res) => {
@@ -78,8 +166,9 @@ app.get('/api/users', async (req, res) => {
   res.json(users);
 });
 
+//register user
 app.post('/api/register', async (req, res) => {
-  const { name, email, username, password, city, userPhone, userState, userCountry, userAddress, birthDate } = req.body;
+  const { name, userEmail, username, password, userZipcode, userCity, userPhone,userState, userCountry, userAddress, birthDate } = req.body;
 
   const existingUser = await User.findOne({
     where: {
@@ -111,6 +200,70 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
+//update user info
+app.put('/api/current-user', async (req, res) => {
+  const { name, userEmail, password, userZipcode, userPhone,userCity, userState, userCountry,userAddress, birthDate } = req.body;
+
+  const token = req.headers['jwt-token'];
+  let tokenData;
+  try {
+    tokenData = jwt.verify(token, jwtSecret);
+  } catch (e) {
+    console.log(e);
+  }
+  const user = await User.findOne({
+    where: {
+      id: tokenData.userId
+    }
+  });
+
+  if (password) {
+    const passwordDigest = await bcrypt.hash(password, 12);
+    user.passwordDigest = passwordDigest;
+  }
+
+  if (name) {
+    user.name = name;
+  }
+
+  if (userEmail) {
+    user.userEmail = userEmail;
+  }
+
+  if (userPhone) {
+    user.userPhone = userPhone;
+  }
+
+  if (userZipcode) {
+    user.userZipcode = userZipcode;
+  }
+
+  if (userCity) {
+    user.userCity = userCity;
+  }
+
+  if (userState) {
+    user.userState = userState;
+  }
+
+  if (userCountry) {
+    user.userCountry = userCountry;
+  }
+
+  if (userAddress) {
+    user.userAddress = userAddress;
+  }
+
+  if (birthDate) {
+    user.birthDate = birthDate;
+  }
+
+  await user.save();
+
+  res.sendStatus(200);
+});
+
+//login
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -140,6 +293,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+//fetch user
 app.get('/api/current-user', async (req, res) => {
   const token = req.headers['jwt-token'];
   let tokenData;
@@ -155,7 +309,6 @@ app.get('/api/current-user', async (req, res) => {
   });
   res.json(user);
 });
-
 
 
 app.get('/api/current-user/contracts', async (req, res) => {

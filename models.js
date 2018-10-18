@@ -39,6 +39,7 @@ const Contract = sequelize.define('contract', {
   serviceDuedate: Sequelize.DATEONLY,
   earlyTermination: Sequelize.TEXT,
   executionDate: Sequelize.TEXT,
+  contractStatus: Sequelize.TEXT,
   // file: Sequelize.BLOB,
   pdfUrl: Sequelize.STRING 
 })

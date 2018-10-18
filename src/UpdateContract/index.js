@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import "./style.css";
-import Popup from "reactjs-popup";
-// import UploadFile from "../UploadFile";
-import { Redirect } from 'react-router-dom';
+import UserContract from "../UserContract";
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import './style.css';
 
-export default class AddContract extends Component {
+export default class UpdateContract extends Component {
   constructor(props) {
     super(props);
-    const token = localStorage.getItem('user-jwt');
     this.state = {
-      redirectToReferrer: false,
-      isLoggedIn: token,
-      user: {},
+      contractId: '',
       contract: {},
       type: '',
       name: '',
@@ -36,42 +32,30 @@ export default class AddContract extends Component {
     }
   }
 
-
-
-  componentDidMount = async () => {
-    this.fetchUser();
-  }
-
-  fetchUser = async () => {
-    const user = await (await fetch('/api/current-user', {
-      method: "GET",
-      headers: {
-        "jwt-token": this.state.isLoggedIn,
-      }
-    })).json();
+  onInputChange = evt => {
+    evt.preventDefault();
     this.setState({
-      user: user
+      [evt.target.name]: evt.target.value
     });
   }
 
-
-  handleChange = (event) => {
-    event.preventDefault();
+  getContractId = (id) => {
     this.setState({
-      [event.target.name]: event.target.value
+      contractId: id
     })
   }
 
-  getImageURL = (url) => {
+  fetchContract = async () => {
+    const id = this.props.match.params.id;
+    const response = await fetch(`/api/contracts/${id}`)
+    const contract = await response.json();
     this.setState({
-        fileUrl: url
+      contract: contract
     })
-}
- 
-  saveContract = async (event) => {
-    event.preventDefault();
-    this.fetchUser();
+  }
 
+  updateContract = async (evt) => {
+    evt.preventDefault();
     const requestBody = JSON.stringify({
       type: this.state.type,
       name: this.state.name,
@@ -92,38 +76,19 @@ export default class AddContract extends Component {
       executionDate: this.state.executionDate,
       contractStatus: this.state.contractStatus
     });
-
-
-    const response = await fetch('/api/contracts', {
-      method: 'POST',
+    const response = await fetch('/api/contracts/:id', {
+      method: 'PUT',
       body: requestBody,
       headers: {
-        'Content-type': 'application/json',
-        'jwt-token': this.state.isLoggedIn
+        'Content-Type': 'application/json'
       }
-    });
-    console.log(requestBody);
-    this.setState({
-      redirectToReferrer: true,
-    });
-
+    })
   }
-
-
-
-
   render() {
-    const { from } = this.props.location.state || { from: { pathname: "/my-contracts" } };
-    const { redirectToReferrer } = this.state;
-
-    if (redirectToReferrer) {
-      return <Redirect to={from} />;
-    }
-
     return (
       <div className="forms-wrapper">
         <div className="contract-form-wrapper">
-          <h1 className="heading">Add contract</h1>
+          <h1 className="heading">Update contract</h1>
           <div className="input-container">
             <div className="input-container-form">
               <form onSubmit={this.saveContract}>
@@ -137,13 +102,13 @@ export default class AddContract extends Component {
                       onChange={this.handleChange}>
                     </input>
                   </label>
-                </div>  
+                </div>
                 <div className="input-wrapper">
                   <label className="input-title">Contracted party name</label>
                   <select className="select-wrapper"
                     name="name"
                     onChange={this.handleChange}>
-                    <option value={this.state.user.name}>Use user info</option>
+                    <option value={this.state.name}>Use user info</option>
                     <option value='new party'>new party</option>
                   </select>
                   {this.state.name === 'new party' && (
@@ -322,42 +287,13 @@ export default class AddContract extends Component {
                     onChange={this.handleChange}>
                   </input>
                 </div>
+                <button onClick={this.updateUser} className="save-button"><Link className="save-link" to='/my-contracts'>Save Changes</Link></button>
                 {/* <UploadFile getFileURL={this.getFileURL}/> */}
               </form>
             </div>
-            <Popup className="contract-details"
-              trigger={<button className="view-details-button"
-              >View</button>}
-              modal
-              closeOnDocumentClick>
-              <div className="contract-details-container">
-                <div className="contract-info">
-                  <h2>Type: {this.state.type}</h2>
-                  <h2>Client Name: {this.state.clientName}</h2>
-                  <h2>Client Email: {this.state.clientEmail}</h2>
-                  <h2>Client Phone number: {this.state.clientPhone}</h2>
-                  <h2>Client City: {this.state.clientCity}</h2>
-                  <h2>Client State: {this.state.clientState}</h2>
-                  <h2>Client Country: {this.state.clientCountry}</h2>
-                  <h2>Client Address: {this.state.clientAddress}</h2>
-                  <h2>Service description: {this.state.serviceDescription}</h2>
-                  <h2>Service Fee: {this.state.serviceFee}</h2>
-                  <h2>Payment conditions: {this.state.paymentConditions}</h2>
-                  <h2>Service delivery date: {this.state.serviceDueDate}</h2>
-                  <h2>Early termination clause: {this.state.earlyTermination}</h2>
-                  <h2>Early termination clause description : {this.state.earlyTerminationDescription}</h2>
-                  <h2>Execution date: {this.state.executionDate}</h2>
-
-                </div>
-              </div>
-            </Popup>
-            <div>
-              <button className="view-details-button"
-                onClick={this.saveContract}>Save</button>
             </div>
-          </div>
-        </div>
-      </div >
-    )
-  }
-}
+            </div>
+            </div>
+            )
+          }
+        }

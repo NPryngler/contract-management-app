@@ -91,7 +91,7 @@ export default class UpdateUser extends Component {
       const requestBody = JSON.stringify({
         name: this.state.name,
         userEmail: this.state.email,
-        userPassword: this.state.password,
+        password: this.state.password,
         userZipcode: this.state.userZipcode,
         userCity: this.state.city,
         userPhone: this.state.userPhone,

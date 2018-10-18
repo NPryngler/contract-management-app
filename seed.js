@@ -33,6 +33,7 @@ const main = async () => {
     earlyTermination: 'pro-rata payment',
     executionDate: "2018-10-20",
     contractFile: "",
+    contractStatus: 'pending'
   })
 
   await user1.addContract(contract1);
