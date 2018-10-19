@@ -1,10 +1,8 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize({
-  database: 'contract_management_app',
+const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/fanstar_db', {
   dialect: 'postgres'
 });
-
 
 // Create models here
 const User = sequelize.define('user', {

@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5678;
 const app = express();
 const path = require('path');
 
-app.use("/", express.static(path.join(__dirname, '/')));
+app.use("/", express.static("./build/"));
 app.use(bodyParser.json());
 
 

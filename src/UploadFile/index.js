@@ -11,6 +11,8 @@ const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/contract-manageme
 
 export default class UploadFile extends Component {
 
+  
+
   //   uploadWidget() {
   //     cloudinary.openUploadWidget({ cloud_name: 'contract-management-app', upload_preset: 'n4hz6jqi', tags:['xmas']},
   //         function(error, result) {
@@ -18,22 +20,22 @@ export default class UploadFile extends Component {
   //         });
   // }
 
-  handleImageUpload = (file) => {
-    let upload = request.post(CLOUDINARY_UPLOAD_URL)
-      .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-      .field('file', file);
+  // handleImageUpload = (file) => {
+  //   let upload = request.post(CLOUDINARY_UPLOAD_URL)
+  //     .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+  //     .field('file', file);
 
-    upload.end((err, response) => {
-      if (err) {
-        console.error(err);
-      } if (response.body.secure_url !== '') {
-        this.setState({
-          uploadedFileCloudinaryUrl: response.body.secure_url
-        });
-        this.props.getImageURL(this.state.uploadedFileCloudinaryUrl)
-      }
-    });
-  }
+  //   upload.end((err, response) => {
+  //     if (err) {
+  //       console.error(err);
+  //     } if (response.body.secure_url !== '') {
+  //       this.setState({
+  //         uploadedFileCloudinaryUrl: response.body.secure_url
+  //       });
+  //       this.props.getImageURL(this.state.uploadedFileCloudinaryUrl)
+  //     }
+  //   });
+  // }
 
   uploadFile = (file) => {
     var url = `https://api.cloudinary.com/v1_1/contract-management-app/upload`;
@@ -41,6 +43,7 @@ export default class UploadFile extends Component {
     var fd = new FormData();
     xhr.open('POST', url, true);
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
     //create a thumbnail
     var tokens = url.split('/');
     tokens.splice(-2, 0, 'w_150,c_scale');
@@ -76,8 +79,7 @@ export default class UploadFile extends Component {
             type="file"
             multiple="false"
             accept="image/*"
-            onChange={this.onImageDrop}
-            value={this.state.uploadedFile}>
+            onChange={this.uploadFile}>
           </input>
         </div>
       </form>
