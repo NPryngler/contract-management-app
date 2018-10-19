@@ -39,7 +39,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "concurrently --names \"React,Express\" --prefix-colors \"green,blue\" \"react-scripts start\" \"nodemon server\"",
-    "build": "react-scripts build \"heroku-postbuild\"",
+    "build": "react-scripts build",
+    "heroku-postbuild": "npm run build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "db": "psql -f createDb.sql && node resetDb.js && node seed.js"

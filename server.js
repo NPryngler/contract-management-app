@@ -313,8 +313,15 @@ app.delete('/api/current-user/contracts', async (req, res) => {
   res.sendStatus(200);
 });
 
+if (process.env.NODE_ENV == "production") {
+  app.get("/*", function(request, response) {
+    response.sendFile(path.join(__dirname, "build", "index.html"));
+  });
+}
 
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`);
 });
+
+
