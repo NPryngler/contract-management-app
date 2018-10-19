@@ -321,7 +321,7 @@ export default class AddContract extends Component {
                   onChange={this.handleChange}>
                 </input>
               </div>
-              {/* <UploadFile getFileURL={this.getFileURL}/> */}
+              {/* <UploadFile /> */}
             </form>
           </div>
           <div className="button-container">
@@ -380,7 +380,6 @@ export default class AddContract extends Component {
                   <div className="info-line">
                     <h3 className="info-title">Status : <span>{this.state.contractStatus}</span></h3>
                   </div>
-
                 </div>
               </div>
             </Popup>

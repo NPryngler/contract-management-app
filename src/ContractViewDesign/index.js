@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import "./style.css";
 
 export default class ContractViewDesign extends Component {
   render() {

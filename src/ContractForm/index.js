@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./style.css";
 import ContractViewSoftDev from "../ContractViewSoftDev";
 import ContractViewDesign from "../ContractViewDesign";
-import ContractPDF from "../ContractPDF";
+// import ContractPDF from "../ContractPDF";
 import { Redirect } from 'react-router-dom';
 
 export default class ContractForm extends Component {
@@ -236,14 +236,14 @@ export default class ContractForm extends Component {
                     </button>
                 </div>
               </form>
-              <div className="button-pdf">
+              {/* <div className="button-pdf">
                   <button
                     className="create-pdf"
                     onClick={this.makePdf}
                     type="submit">
                     PDF file
                     </button>
-                </div>
+                </div> */}
             </div>
           </div>
         </div>
@@ -282,7 +282,9 @@ export default class ContractForm extends Component {
           )}
     
         </div>
-        <div>
+        
+
+        {/* <div>
         {this.state.makePdf === true &&this.state.type === 'Software Development Agreement' && (
           <ContractPDF
             userProps={this.state.user}
@@ -298,7 +300,7 @@ export default class ContractForm extends Component {
             executionDateProps={this.state.executionDate}
           />
           )}
-          </div>
+          </div> */}
       
       </div>
     )
