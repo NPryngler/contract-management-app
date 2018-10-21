@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./style.css";
 import Popup from "reactjs-popup";
-// import UploadFile from "../UploadFile";
+import { Image } from 'cloudinary-react';
 import { Redirect } from 'react-router-dom';
 
 export default class AddContract extends Component {
@@ -32,6 +32,7 @@ export default class AddContract extends Component {
       stateLocation: '',
       executionDate: '',
       contractStatus: '',
+      uploadedFile: '',
       fileUrl: ''
     }
   }
@@ -62,15 +63,12 @@ export default class AddContract extends Component {
     })
   }
 
-  getImageURL = (url) => {
-    this.setState({
-      fileUrl: url
-    })
-  }
+
 
   saveContract = async (event) => {
     event.preventDefault();
     this.fetchUser();
+    this.uploadFile();
 
     const requestBody = JSON.stringify({
       type: this.state.type,
@@ -90,9 +88,11 @@ export default class AddContract extends Component {
       earlyTermination: this.state.earlyTermination,
       earlyTerminationDescription: this.state.earlyTerminationDescription,
       executionDate: this.state.executionDate,
-      contractStatus: this.state.contractStatus
-    });
+      contractStatus: this.state.contractStatus,
+      uploadedFile: this.state.uploadedFile,
+      fileUrl: this.state.uploadedFile.name + "_" + this.state.user.name
 
+    });
 
     const response = await fetch('/api/contracts', {
       method: 'POST',
@@ -106,10 +106,41 @@ export default class AddContract extends Component {
     this.setState({
       redirectToReferrer: true,
     });
-
+    console.log(requestBody)
   }
 
 
+  handleFile = (event) => {
+    event.preventDefault();
+    this.setState({
+      uploadedFile: event.target.files[0]
+    })
+  }
+
+
+  uploadFile = (file) => {
+    const CLOUDINARY_UPLOAD_PRESET = 'xmala6il';
+    const cloudName = 'contract-management-app';
+
+    let url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+    let xhr = new XMLHttpRequest();
+    let fd = new FormData();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+    //create a thumbnail
+    // var tokens = url.split('/');
+    // tokens.splice(-2, 0, 'w_150,c_scale');
+    // var img = new Image();
+    // img.src = tokens.join('/');
+    // img.alt = response.public_id;
+
+     
+    fd.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    fd.append('public_id', `${this.state.uploadedFile.name + "_" + this.state.user.name}`); // Optional - add tag for image admin in Cloudinary
+    fd.append('file', this.state.uploadedFile);
+    xhr.send(fd);
+  }
 
 
   render() {
@@ -119,6 +150,9 @@ export default class AddContract extends Component {
     if (redirectToReferrer) {
       return <Redirect to={from} />;
     }
+    const publicId = this.state.fileUrl;
+    console.log(publicId);
+  
 
     return (
       <div className="form-container">
@@ -321,7 +355,20 @@ export default class AddContract extends Component {
                   onChange={this.handleChange}>
                 </input>
               </div>
-              {/* <UploadFile /> */}
+              <div>
+                <input
+                  type="file"
+                  multiple="false"
+                  accept="application/pdf"
+                  onChange={this.handleFile}>
+                </input>
+              </div>
+              <div>
+                <Image
+                  publicId={publicId} 
+                  // width="100" height="140" crop="fill"
+                  />
+              </div>
             </form>
           </div>
           <div className="button-container">
@@ -384,7 +431,7 @@ export default class AddContract extends Component {
               </div>
             </Popup>
             <div>
-              <button className="view-details-button"
+              <button className="button-standard"
                 onClick={this.saveContract}>Save</button>
             </div>
           </div>

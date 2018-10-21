@@ -39,8 +39,7 @@ const Contract = sequelize.define('contract', {
   earlyTermination: Sequelize.TEXT,
   executionDate: Sequelize.TEXT,
   contractStatus: Sequelize.TEXT,
-  // file: Sequelize.BLOB,
-  pdfUrl: Sequelize.STRING 
+  fileUrl: Sequelize.STRING 
 })
 
 const UserContracts = sequelize.define('userContracts');

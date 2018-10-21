@@ -187,12 +187,12 @@ export default class UpdateUser extends Component {
           </div>
             <div>
               {this.state.valid && (
-                <button onClick={this.updateUser} className="save-button"><Link className="save-link" to='/my-contracts'>Save Changes</Link></button>
+                <button onClick={this.updateUser} className="button-standard" ><Link className="save-link" to='/my-contracts'>Save Changes</Link></button>
               )}
               {!this.state.valid && (
-                <button className="validate-button" onClick={this.isValid}>Validate Changes</button>
+                <button className="button-standard"  onClick={this.isValid}>Validate Changes</button>
               )}
-              <button className="cancel-button"><Link className="cancel-link" to='/my-contracts'>Cancel</Link></button>
+              <button className="button-standard" ><Link className="cancel-link" to='/my-contracts'>Cancel</Link></button>
             </div>
           </form>
         </div>

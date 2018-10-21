@@ -1,12 +1,12 @@
 .register-form {
-  width: 60%;
-  margin: 15px auto;
+  width: 40%;
+  margin: 10px auto;
   text-align: center;
   border: 1px solid;
 }
 
 .form{
-  text-align: left;
+  text-align: center;
 }
 
 .register-label {
@@ -34,6 +34,7 @@ input[type=text][type=password]{
 }
 
 .register-button{
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -41,4 +42,8 @@ input[type=text][type=password]{
   padding-left: 10px;
   text-align: center;
   margin: 0 auto;
+}
+
+@media only screen and (max-width: 1080px){
+  width: 60%; 
 }

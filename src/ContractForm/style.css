@@ -20,6 +20,8 @@
   margin-bottom: 10%;
   
 }
+
+
 input{
 font-size: 14px;
 width: 80%;
@@ -75,6 +77,7 @@ select{
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 14px;
+  width: 90%;
 }
 option{
   font-size: 14px;
@@ -82,4 +85,8 @@ option{
 .step{
   font-size: 25px;
   color: red;
+}
+.view-details-button{
+  font-size: 14px;
+  padding: 3px;
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "./style.css";
 import ContractViewSoftDev from "../ContractViewSoftDev";
 import ContractViewDesign from "../ContractViewDesign";
+import Popup from "reactjs-popup";
 // import ContractPDF from "../ContractPDF";
 import { Redirect } from 'react-router-dom';
 
@@ -18,21 +19,21 @@ export default class ContractForm extends Component {
       isLoggedIn: token,
       name: '',
       newName: '',
-      clientName: "Client's complete name ",
-      clientPhone: "+1(000)000 0000",
-      clientEmail: "Client's e-mail address",
-      clientZipcode: "Client`s zipcode",
-      clientCity: "Client's City",
-      clientState: "Client's State",
-      clientCountry: "Client's Country",
-      clientAddress: "Client's complete name ",
-      serviceDescription: JSON.parse(localStorage.getItem("service-description")) || "Describe what the developer will do. Include any milestones.",
-      serviceDueDate: JSON.parse(localStorage.getItem("service-duedate")) || "",
-      serviceFee: JSON.parse(localStorage.getItem("service-fee")) || 0.00,
-      paymentConditions: JSON.parse(localStorage.getItem("payment-conditions")) || ' describe, eg. in two installments of 50%, the first due upon acceptance of this aggreement and the last upon delivery',
-      earlyTermination: JSON.parse(localStorage.getItem("early-termination")) || " any unpaid fees prorated for the portion of the work completed at the time of termination.",
-      stateLocation: JSON.parse(localStorage.getItem("state-location")) || "",
-      executionDate: JSON.parse(localStorage.getItem("execution-date")) || "",
+      clientName: "",
+      clientPhone: "",
+      clientEmail: "",
+      clientZipcode: "",
+      clientCity: "",
+      clientState: "",
+      clientCountry: "",
+      clientAddress: "",
+      serviceDescription: "",
+      serviceDueDate: "",
+      serviceFee: "",
+      paymentConditions: "",
+      earlyTermination: "",
+      stateLocation: "",
+      executionDate: "",
     }
   }
 
@@ -65,7 +66,7 @@ export default class ContractForm extends Component {
       makePdf: true,
     })
     console.log('click');
-    
+
   }
 
   saveContract = async (event) => {
@@ -104,7 +105,7 @@ export default class ContractForm extends Component {
       redirectToReferrer: true,
     });
 
-    
+
   }
 
   render() {
@@ -133,7 +134,7 @@ export default class ContractForm extends Component {
                     </select>
                   </label>
                 </div>
-                <div className="input-wrapper">
+                {/* <div className="input-wrapper">
                   <label className="input-title">Freelancer's complete name </label>
                   <select className="select-wrapper"
                     name="name"
@@ -146,13 +147,13 @@ export default class ContractForm extends Component {
                     <input
                       className="title-input"
                       placeholder="Freelancer complete name"
-                      name="name"
-                      value={this.state.name}
+                      name="newName"
+                      value={this.state.newName}
                       onChange={this.handleChange}>
                     </input>
                     </div>
                   )}
-                </div>
+                </div> */}
                 <div className="input-wrapper">
                   <label className="input-title">Client's complete name</label>
                   <input
@@ -164,7 +165,12 @@ export default class ContractForm extends Component {
                   </input>
                 </div>
                 <div className="input-wrapper">
-                  <label className="input-title">Service description</label>
+                  <label className="input-title">Service description <Popup className="clause-info"
+                    trigger={<button className="view-details-button"
+                    >?</button>}
+                    modal
+                    closeOnDocumentClick><h3> Describe the services to be rendered, including agreed milestones and other specifities</h3>
+                  </Popup></label>
                   <input
                     className="title-input"
                     placeholder="service description"
@@ -196,7 +202,13 @@ export default class ContractForm extends Component {
                   </input>
                 </div>
                 <div className="input-wrapper">
-                  <label className="input-title">Payment conditions</label>
+                  <label className="input-title">Payment conditions <Popup className="clause-info"
+                    trigger={<button className="view-details-button"
+                    >?</button>}
+                    modal
+                    closeOnDocumentClick><h3> Describe the payment conditions, eg. in two installments of 50%, the first due upon acceptance of this aggreement and the last upon delivery</h3>
+                  </Popup></label>
+
                   <input
                     className="title-input"
                     type="text"
@@ -227,16 +239,16 @@ export default class ContractForm extends Component {
                     onChange={this.handleChange}>
                   </input>
                 </div>
-                <div className="button-save">
+                <div className="button-container">
                   <button
-                    className="create-contract"
+                    className="button-standard"
                     onClick={this.saveContract}
                     type="submit">
                     Save Contract
                     </button>
                 </div>
               </form>
-              {/* <div className="button-pdf">
+              {/* <div className="button-standard">
                   <button
                     className="create-pdf"
                     onClick={this.makePdf}
@@ -248,41 +260,41 @@ export default class ContractForm extends Component {
           </div>
         </div>
         <div className="contract-view-wrapper">
-         {this.state.type === 'Software Development Agreement' && (
-          <ContractViewSoftDev
-            userProps={this.state.user}
-            userNameProps={this.state.user.name}
-            newNameProps={this.state.newName}
-            clientNameProps={this.state.clientName}
-            serviceDescriptionProps={this.state.serviceDescription}
-            serviceDueDateProps={this.state.serviceDueDate}
-            serviceFeeProps={this.state.serviceFee}
-            paymentConditionsProps={this.state.paymentConditions}
-            earlyTerminationProps={this.state.earlyTermination}
-            stateLocationProps={this.state.user.userState}
-            executionDateProps={this.state.executionDate}
-          />
+          {this.state.type === 'Software Development Agreement' && (
+            <ContractViewSoftDev
+              userProps={this.state.user}
+              userNameProps={this.state.user.name}
+              newNameProps={this.state.newName}
+              clientNameProps={this.state.clientName}
+              serviceDescriptionProps={this.state.serviceDescription}
+              serviceDueDateProps={this.state.serviceDueDate}
+              serviceFeeProps={this.state.serviceFee}
+              paymentConditionsProps={this.state.paymentConditions}
+              earlyTerminationProps={this.state.earlyTermination}
+              stateLocationProps={this.state.user.userState}
+              executionDateProps={this.state.executionDate}
+            />
           )}
 
 
           {this.state.type === 'Design Services Agreement' && (
-          <ContractViewDesign
-            userProps={this.state.user}
-            userNameProps={this.state.user.name}
-            newNameProps={this.state.newName}
-            clientNameProps={this.state.clientName}
-            serviceDescriptionProps={this.state.serviceDescription}
-            serviceDueDateProps={this.state.serviceDueDate}
-            serviceFeeProps={this.state.serviceFee}
-            paymentConditionsProps={this.state.paymentConditions}
-            earlyTerminationProps={this.state.earlyTermination}
-            stateLocationProps={this.state.user.userState}
-            executionDateProps={this.state.executionDate}
-          />
+            <ContractViewDesign
+              userProps={this.state.user}
+              userNameProps={this.state.user.name}
+              newNameProps={this.state.newName}
+              clientNameProps={this.state.clientName}
+              serviceDescriptionProps={this.state.serviceDescription}
+              serviceDueDateProps={this.state.serviceDueDate}
+              serviceFeeProps={this.state.serviceFee}
+              paymentConditionsProps={this.state.paymentConditions}
+              earlyTerminationProps={this.state.earlyTermination}
+              stateLocationProps={this.state.user.userState}
+              executionDateProps={this.state.executionDate}
+            />
           )}
-    
+
         </div>
-        
+
 
         {/* <div>
         {this.state.makePdf === true &&this.state.type === 'Software Development Agreement' && (
@@ -301,7 +313,7 @@ export default class ContractForm extends Component {
           />
           )}
           </div> */}
-      
+
       </div>
     )
   }

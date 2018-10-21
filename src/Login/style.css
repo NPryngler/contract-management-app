@@ -38,50 +38,13 @@ textarea:focus, input:focus {
 }
 
 .login-container{
-  width: 50%;
+  position: relative;
+  width: 80%;
   padding: 15px;
   margin: 0 auto;
   text-align: center;
 }
-.image-container{
-  width: 60%;
-  margin: 0 auto;
-  text-align: center;
-}
-.vinyl-image{
-  margin-top: 80px;
-  width: 50%;
-  height: 50%;
-  animation: spin 3000ms infinite linear;
-}
 
-@keyframes spin {
-  from {
-      transform:rotate(0deg)
-  }
-  to {
-      transform:rotate(360deg)
-  }
-} 
-
-.login-button{
-  margin: 15px;
-  font-family: 'Roboto Condensed', sans-serif;
-  padding: 5px 15px;
-  font-size: 14px;
-  border-radius: 4px;
-  border: solid 1px #BFEDEF;
-  background-color: #011627;
-  color: #BFEDEF;
-  cursor: pointer;
-  outline: none;
-}
-
-.login-button:hover{
-  background-color: #BFEDEF;
-  border: solid 1px #011627;
-  color: #011627;
-}
 
 @media screen and (max-width:500px){
   .login-container{

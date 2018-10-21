@@ -9,9 +9,9 @@ export default class ContractViewDesign extends Component {
           <h1 className="heading">Preview</h1>
           <h3 className="contract-title">GRAPHIC DESIGN AGREEMENT</h3>
           <div className="clause-content">
-            <p><span className="output client-name">{this.props.clientNameProps}</span>
+            <p><span className="output client-name">{this.props.clientNameProps} </span>
               ("Client") is hiring </p>
-            <p><span className="output freelancer-name">{this.props.userNameProps}</span>
+            <p><span className="output freelancer-name">{this.props.userNameProps} </span>
               ("Freelancer") to do freelance to do graphic design work.</p>
             <p>The following sets forth the agreement between these two parties and binds them both.</p>
           </div>

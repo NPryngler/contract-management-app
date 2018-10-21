@@ -35,29 +35,38 @@
 .link{
   text-decoration: none;
   color: aliceblue;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .link:hover{
-  color: #008BF8;
   font-style: bold;
 }
 
-button{
+.button-standard{
   font-family: 'Lato', sans-serif;
   padding: 10px 30px;
-  font-size: 14px;
-  border-radius: 4px;
+  font-size: 16px;
+  border-radius: 10px;
   background-color: #008BF8;
   cursor: pointer;
   outline: none;
-  color: black;
+  color: white;
+
 }
-button:hover{
+.button-standard:hover{
   background-color: #DC0073;
   color: #BFEDEF
 }
 
 a {
   text-decoration: none;
+}
+
+@media and (max-width:880px){
+  .contract-view-wrapper{
+    display: none
+  }
+  .welcome-screen-title{
+    font-size: 22px;
+  }
 }

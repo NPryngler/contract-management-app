@@ -212,10 +212,10 @@ export default class Register extends Component {
           </div>
           <div className="register-button">
             {this.state.valid && (
-              <button >Register</button>
+              <button className="button-standard" >Register</button>
             )}
             {!this.state.valid && (
-              <button onClick={this.isValid}>Ok</button>
+              <button className="button-standard" onClick={this.isValid}>Ok</button>
             )}
             {
               this.state.message &&

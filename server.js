@@ -60,7 +60,8 @@ app.post('/api/contracts', async (req, res) => {
     earlyTerminationDescription: req.body.earlyTerminationDescription,
     executionDate: req.body.executionDate,
     fileUrl: req.body.filename,
-    contractStatus: req.body.contractStatus
+    contractStatus: req.body.contractStatus,
+    fileUrl: req.body.fileUrl
     //file url = variable set above
   })
   user.addContract(newContract);

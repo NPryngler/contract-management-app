@@ -17,13 +17,13 @@ export default class ContractsMenu extends Component {
     return (
       <div
         className="contracts-menu-container">
-        <h1 className="menu-header">Do you want to make a new one or just file and manage an existing one? </h1>
+        <h1 className="menu-header">Do you want to make a new contract or just file and manage an existing one? </h1>
         <div className="options-container">
           <div className="option-container">
-        <button className="form-type-btn"><Link className="form-link" to='/contract-form'>Generate a contract</Link></button>
+        <button className="button-menu"><Link className="link" to='/contract-form'>Generate a contract</Link></button>
         </div>
           <div className="option-container">
-          <button className="form-type-btn"><Link className="form-link" to='/add-contract'>Add an existing contract</Link></button>
+          <button className="button-menu"><Link className="link" to='/add-contract'>Add an existing contract</Link></button>
           </div>
           
         </div>

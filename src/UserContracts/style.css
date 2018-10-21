@@ -16,3 +16,11 @@
   margin: 0 auto;
 }
 
+.link {
+  color: white;
+  font-size: 16px;
+}
+.user-details{
+  text-align: left;
+  margin: 2em;
+}

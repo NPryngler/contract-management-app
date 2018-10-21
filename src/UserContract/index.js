@@ -3,6 +3,8 @@ import "./style.css";
 // import ContractDetails from '../ContractDetails';
 import Popup from "reactjs-popup";
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Image } from 'cloudinary-react';
+
 
 export default class UserContract extends Component {
 
@@ -31,17 +33,24 @@ export default class UserContract extends Component {
               <div className="table-cell"><h3>Status</h3></div>
               <div className="table-cell">{this.props.contractStatus}</div>
             </div>
+            {/* <div className="item">
+            <div>
+                <Image
+                  cloudName="contract-management-app"
+                  publicId={this.props.fileUrl} width="50" height="80" crop="fill"/>
+              </div>
+            </div> */}
           </div>
         </div>
 
         <div className="buttons-container">
           <Popup className="contract-details"
-            trigger={<button className="view-details-button">See More</button>}
+            trigger={<button className="button-standard">See More</button>}
             modal
             closeOnDocumentClick>
             <div className="contract-details-container">
               <div className="contract-info">
-                <h3>Type: {this.props.type}</h3>
+                <h3>Type: <span>{this.props.type}</span></h3>
                 <h3>Client Name: {this.props.clientName}</h3>
                 <h3>Client Email: {this.props.clientEmail}</h3>
                 <h3>Client Phone number: {this.props.clientPhone}</h3>
@@ -61,7 +70,7 @@ export default class UserContract extends Component {
             </div>
           </Popup>
           <div>
-            <button className='delete-button' onClick={this.props.onClickDeleteButton}>Delete from contracts</button>
+            <button className="button-standard"  onClick={this.props.onClickDeleteButton}>Delete from contracts</button>
           </div>
         </div>
       </div >
