@@ -93,7 +93,7 @@ export default class UpdateUser extends Component {
         userEmail: this.state.email,
         password: this.state.password,
         userZipcode: this.state.userZipcode,
-        userCity: this.state.city,
+        userCity: this.state.userCity,
         userPhone: this.state.userPhone,
         userState: this.state.userState,
         userCountry: this.state.userCountry,
@@ -152,31 +152,31 @@ export default class UpdateUser extends Component {
             <div className="input-container">
             <label className="register-label">Zipcode: </label>
             <br />
-            <input type='text' placeholder='City' onChange={this.onInputChange} name='userZipcode' pattern="[0-9]{5}" value={this.state.userZipcode}>
+            <input type='text' placeholder='zipcode' onChange={this.onInputChange} name={this.state.user.userZipcode} pattern="[0-9]{5}" value={this.state.userZipcode}>
             </input>
           </div>
           <div className="input-container">
             <label className="register-label">City: </label>
             <br />
-            <input type='text' placeholder='City' onChange={this.onInputChange} name='userCity' value={this.state.userCity}>
+            <input type='text' placeholder={this.state.user.userCity} onChange={this.onInputChange} name='userCity' value={this.state.userCity}>
             </input>
           </div>
           <div className="input-container">
             <label className="register-label">State: </label>
             <br />
-            <input type='text' placeholder='State' onChange={this.onInputChange} name='userState' value={this.state.userState}>
+            <input type='text' placeholder={this.state.user.userState} onChange={this.onInputChange} name='userState' value={this.state.userState}>
             </input>
           </div>
           <div className="input-container">
             <label className="register-label">Country: </label>
             <br />
-            <input type='text' placeholder='Country' onChange={this.onInputChange} name='userCountry' value={this.state.userCountry}>
+            <input type='text' placeholder={this.state.user.userCountry} onChange={this.onInputChange} name='userCountry' value={this.state.userCountry}>
             </input>
           </div>
           <div className="input-container">
             <label className="register-label">Address: </label>
             <br />
-            <input type='text' placeholder='Adress' onChange={this.onInputChange} name='userAddress' value={this.state.userAddress}>
+            <input type='text' placeholder={this.state.user.userAddress} onChange={this.onInputChange} name='userAddress' value={this.state.userAddress}>
             </input>
           </div>
           <div className="input-container">

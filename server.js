@@ -100,7 +100,7 @@ app.post('/api/register', async (req, res) => {
       email: email,
       username: username,
       passwordDigest: passwordDigest,
-      city: city,
+      userCity: userCity,
       userPhone: userPhone,
       userState: userState,
       userCountry: userCountry,
