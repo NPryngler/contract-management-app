@@ -3,7 +3,7 @@ import "./style.css";
 import ContractViewSoftDev from "../ContractViewSoftDev";
 import ContractViewDesign from "../ContractViewDesign";
 import Popup from "reactjs-popup";
-// import ContractPDF from "../ContractPDF";
+import ContractPDF from "../ContractPDF";
 import { Redirect } from 'react-router-dom';
 
 export default class ContractForm extends Component {

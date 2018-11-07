@@ -3,6 +3,7 @@ import { Page } from 'react-pdf';
 import { Document } from 'react-pdf/dist/entry.webpack';
 // import { Document } from 'react-pdf/dist/entry.noworker';
 import ContractViewDesign from "../ContractViewDesign";
+import * as jsPDF from 'jspdf';
 
 export default class ContractPDF extends Component {
   state = {
